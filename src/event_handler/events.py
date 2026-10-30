@@ -1,0 +1,6 @@
+from enum import Enum, auto
+
+
+class Events(Enum):
+    PLAYER_MOVE = auto()
+    ROOM_LOADED = auto()
