@@ -30,7 +30,6 @@ class PlayerSpawner(Terrain, ABC):
     def get_player_spawn_pos(self):
         x, y = self.get_texture_size_scaled(self.scaler)
         x /= 2
-        y /= 2
 
         return self.pos + pg.Vector2(x, y)
 

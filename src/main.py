@@ -18,7 +18,7 @@ from overlay.text import Text
 from run_modes import RunModes
 
 # decides gamemode, use RunModes.DEFAULT for intended gameplay
-run_mode = RunModes.EDITOR
+run_mode = RunModes.DEFAULT
 
 engine = Engine(run_mode)
 engine.init()
