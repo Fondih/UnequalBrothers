@@ -48,6 +48,9 @@ class Coordinate:
     def __abs__(self):
         return Coordinate(abs(self.x), abs(self.y))
 
+    def __eq__(self, other):
+        return all([type(self) is type(other), self.x == other.x, self.y == other.y])
+
     def pos(self):
         return pg.Vector2(self.x, self.y)
 

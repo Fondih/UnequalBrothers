@@ -246,16 +246,19 @@ class EditorTerrainSelected(LevelEntity, ABC):
 
         obj = self.type_obj(pos=self.pos, scaler=self.scaler, rot=self.rot, **extra_kwargs)
 
-        if isinstance(obj, Terrain):
+        if isinstance(obj, Terrain) and self.commit_needed(Level.get_instance().get_layer_level(), obj):
             Level.get_instance().add_level(obj)
             Engine.render_terrain()
             self.edit_list.append(obj)
-        if isinstance(obj, LevelEntity):
+        if isinstance(obj, LevelEntity) and self.commit_needed(Level.get_instance().get_layer_level_entity(), obj):
             Level.get_instance().add_level_entity(obj)
             self.edit_list.append(obj)
-        if isinstance(obj, Entity):
+        if isinstance(obj, Entity) and self.commit_needed(Level.get_instance().get_layer_entity(), obj):
             Level.get_instance().add_entity(obj)
             self.edit_list.append(obj)
+
+    def commit_needed(self, layer, obj):
+        return not any(e == obj for e in layer if e is not self)
 
     @classmethod
     def undo_commit(cls):

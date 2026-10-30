@@ -7,6 +7,14 @@ class LevelEntity(LevelObject, ABC):
     def __init__(self, pos, scaler=1, rot=0):
         super().__init__(pos, scaler, rot)
 
+    def __eq__(self, other):
+        return all([
+            type(self) is type(other),
+            self.pos == other.pos,
+            self.scaler == other.scaler,
+            self.rot == other.rot
+        ])
+
     @classmethod
     def create_name(cls):
         return "level_entity"
