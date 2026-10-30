@@ -71,13 +71,17 @@ class TerrainFolderLever(Lever, ABC):
 
         items = list(filter(pathcheck, registry.items()))
 
+        levers = []
+
         for name, e in items:
             cls, group = e
 
             if len(group) > len(self.path):
-                lever = TerrainFolderLever(CoordinateScreen(0, 0),
-                                           group[0:len(self.path) + 1], self.pos_root)
-                content.append(lever)
+                if group not in levers:
+                    lever = TerrainFolderLever(CoordinateScreen(0, 0),
+                                               group[0:len(self.path) + 1], self.pos_root)
+                    content.append(lever)
+                    levers.append(group)
             else:
                 button = TerrainObjectButton(CoordinateScreen(0, 0), cls)
                 content.append(button)

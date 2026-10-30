@@ -65,24 +65,17 @@ class PlayerEntity(LivingEntity, ABC):
 
         dist = pg.Vector2(0, 0)
 
-        if self.noclip:
-            if keys[K_LEFT]:
-                dist += pg.Vector2(-self.speed * dt, 0)
-            if keys[K_RIGHT]:
-                dist += pg.Vector2(self.speed * dt, 0)
-            if keys[K_UP]:
-                dist += pg.Vector2(0, -self.speed * dt)
-            if keys[K_DOWN]:
-                dist += pg.Vector2(0, self.speed * dt)
+        if keys[K_LEFT]:
+            dist += pg.Vector2(-self.speed * dt, 0)
+        if keys[K_RIGHT]:
+            dist += pg.Vector2(self.speed * dt, 0)
+        if keys[K_UP]:
+            dist += pg.Vector2(0, -self.speed * dt)
+        if keys[K_DOWN]:
+            dist += pg.Vector2(0, self.speed * dt)
 
-            if not dist.x == 0 and not dist.y == 0:
-                dist /= math.sqrt(2)
-
-        else:
-            if keys[K_LEFT]:
-                dist += pg.Vector2(-self.speed * dt, 0)
-            if keys[K_RIGHT]:
-                dist += pg.Vector2(self.speed * dt, 0)
+        if not dist.x == 0 and not dist.y == 0:
+            dist /= math.sqrt(2)
 
         if not dist == pg.Vector2(0, 0):
             self.move(dist)

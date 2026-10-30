@@ -9,7 +9,7 @@ from terrain.terrain import Terrain
 from terrain.terrain_registry import register
 
 
-@register(["spawner"])
+@register(["level utils"])
 class PlayerSpawner(Terrain, ABC):
     def __init__(self, pos, spawner_id: int, scaler=1, rot=0):
         super().__init__(pos, scaler=scaler, rot=rot)
