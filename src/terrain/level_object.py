@@ -4,17 +4,20 @@ from json import JSONEncoder
 import pygame as pg
 
 import config as c
+from collider.collider import Collider
+from collider.colliders.rect_collider import RectCollider
 from level.camera import Camera
 
 
 class LevelObject(ABC):
     _texture = None
 
-    def __init__(self, pos, scaler, rot):
+    def __init__(self, pos, scaler, rot, solid):
         self.pos = pos
         self.scaler = scaler
         self.rot = rot
         self.size = self.create_texture_size()
+        self.solid = solid
         cls = type(self)
         if cls._texture is None:
             cls._texture = self.create_texture()
@@ -116,9 +119,8 @@ class LevelObject(ABC):
         self.image = img
         return img
 
-    @abstractmethod
     def create_collider(self):
-        pass
+        return RectCollider(self.pos, self.get_texture_size_scaled(self.scaler), Collider.Type.LEVEL, is_solid=self.solid)
 
     @classmethod
     def create_pos_offset(cls, scaler):

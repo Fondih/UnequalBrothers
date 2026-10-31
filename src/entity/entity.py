@@ -8,10 +8,20 @@ from terrain.level_object import LevelObject
 
 
 class Entity(LevelObject, ABC):
-    def __init__(self, pos, scaler, vel=None, rot=0):
+    def __init__(self, pos, scaler, vel=None, rot=0, gravity=True, solid=False):
         self.vel = vel if vel is not None else pg.Vector2(0, 0)
+        self.gravity = gravity
 
-        super().__init__(pos, scaler, rot)
+        super().__init__(pos, scaler, rot, solid)
+
+    def __eq__(self, other):
+        return all([
+            type(self) is type(other),
+            self.pos == other.pos,
+            self.scaler == other.scaler,
+            self.rot == other.rot,
+            self.solid == other.solid
+        ])
 
     @classmethod
     def create_name(cls):

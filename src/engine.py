@@ -38,6 +38,7 @@ class Engine:
         from level.camera import Camera
         from level.dt import Dt
         from level.level import Level
+        from _devtools.level_editor.overlay.editing_menu.terrain_pick_controller import TerrainPickController
 
         pg.init()
         os.system('color')
@@ -46,6 +47,8 @@ class Engine:
         Camera(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
         Level()
         Dt()
+        if self.run_mode == RunModes.EDITOR:
+            TerrainPickController()
         self.clock = pg.time.Clock()
         pg.display.set_caption(c.CAPTION_EDITOR if self.run_mode == RunModes.EDITOR else c.CAPTION_DEFAULT)
         self.running = True

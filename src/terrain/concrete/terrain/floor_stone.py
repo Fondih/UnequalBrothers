@@ -8,7 +8,7 @@ from terrain.terrain_registry import register
 @register(["floor"])
 class FloorStone(Terrain, ABC):
     def __init__(self, pos, scaler=1, rot=0):
-        super().__init__(pos, scaler=scaler, rot=rot)
+        super().__init__(pos, scaler=scaler, rot=rot, solid=False)
 
     @classmethod
     def create_name(cls):
@@ -17,6 +17,3 @@ class FloorStone(Terrain, ABC):
     @classmethod
     def create_texture_size(cls):
         return 50, 50
-
-    def create_collider(self):
-        return Collider(self.pos, Collider.Type.LEVEL)

@@ -2,16 +2,19 @@ from abc import ABC
 
 import pygame as pg
 
+from _devtools.level_editor.overlay.editor_terrain_menu.menu_type_registry import spec_menu
+from _devtools.level_editor.overlay.editor_terrain_menu.menus import Menus
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from terrain.level_entity import LevelEntity
 from terrain.terrain_registry import register
 
 
+@spec_menu(Menus.RESIZABLE_RECT)
 @register(["level utils"])
 class RoomTransition(LevelEntity, ABC):
     def __init__(self, pos, target_room: str, target_transition_id: int, transition_id: int, scaler=1, rot=0):
-        super().__init__(pos, scaler=scaler, rot=rot)
+        super().__init__(pos, scaler=scaler, rot=rot, solid=False)
 
         self.target_room = target_room
         self.target_transition_id = target_transition_id
@@ -33,9 +36,6 @@ class RoomTransition(LevelEntity, ABC):
         x, y = self.create_texture_size()
 
         return pg.Vector2(x // 2, y) * self.scaler
-
-    def create_collider(self):
-        return RectCollider(self.pos, self.get_texture_size_scaled(self.scaler), Collider.Type.LEVEL, is_solid=False)
 
     def update(self):
         from entity.concrete.player.player_entity import PlayerEntity

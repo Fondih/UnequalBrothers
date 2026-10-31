@@ -14,7 +14,7 @@ FONT_DEFAULT = "Comic Sans MS"
 ROOM_WIDTH = 2560
 ROOM_HEIGHT = 1440
 GRID_SIZE = 50
-ROOM_START = "room_0"
+ROOM_START = "room_start"
 GAMEMODE = RunModes.EDITOR
 
 #editor
@@ -22,6 +22,7 @@ CAPTION_EDITOR = "Level Editor"
 KEY_SUBTLE_EDITING = pg.KMOD_CTRL
 KEY_EDITING_DRAG = 0
 KEY_EDITING_PAINT = 2
+KEY_EDITING_PICK = 1
 
 #player input keys
 K_UP = pg.K_w

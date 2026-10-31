@@ -6,6 +6,8 @@ from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from datatype.coordinate_screen import CoordinateScreen
 from entity.concrete.player.player_entity import PlayerEntity
+from event_handler.event_handler import Event
+from event_handler.events import Events
 from level.level import Level
 from overlay.button import Button
 from overlay.text import Text
@@ -117,6 +119,7 @@ class TerrainObjectButton(Button, ABC):
 
             return images
 
+    @Event.trigger(Events.EDITOR_TERRAIN_CREATED)
     def clicked(self):
         from _devtools.level_editor.terrain.editor_terrain_selected import EditorTerrainSelected
 

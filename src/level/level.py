@@ -19,6 +19,9 @@ class Level:
 
         Level._instance = self
 
+    def get_terrain_all(self):
+        return self.layer_background + self.layer_level + self.layer_level_entity + self.layer_entity
+
     def get_layer_background(self):
         return self.layer_background
 

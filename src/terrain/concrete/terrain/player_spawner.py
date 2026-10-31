@@ -12,7 +12,7 @@ from terrain.terrain_registry import register
 @register(["level utils"])
 class PlayerSpawner(Terrain, ABC):
     def __init__(self, pos, spawner_id: int, scaler=1, rot=0):
-        super().__init__(pos, scaler=scaler, rot=rot)
+        super().__init__(pos, scaler=scaler, rot=rot, solid=False)
 
         self.spawner_id = spawner_id
 
@@ -32,6 +32,3 @@ class PlayerSpawner(Terrain, ABC):
         x /= 2
 
         return self.pos + pg.Vector2(x, y)
-
-    def create_collider(self):
-        return Collider(self.pos, Collider.Type.LEVEL)

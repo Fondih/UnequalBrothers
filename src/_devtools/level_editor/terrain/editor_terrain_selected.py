@@ -5,6 +5,8 @@ import pygame as pg
 
 import config as c
 from _devtools.level_editor.overlay.editor_terrain_menu import menu_type_registry
+from _devtools.level_editor.overlay.editor_terrain_menu.editor_terrain_selected_info_menu import \
+    EditorTerrainSelectedInfoMenu
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from datatype.coordinate import Coordinate
@@ -35,6 +37,7 @@ class EditorTerrainSelected(LevelEntity, ABC):
         super().__init__(pos)
 
         self.menu = self.create_menu()
+        self.info_menu = self.create_info_menu()
         self.is_held = False
         self.held_offset = pg.Vector2(0, 0)
         self.painted_flag = False
@@ -43,6 +46,7 @@ class EditorTerrainSelected(LevelEntity, ABC):
         self.resize = False
         self.start_size = (0, 0)
         self.start_mouse = (0, 0)
+        self.vars = {}
 
         EditorTerrainSelected._instance = self
 
@@ -151,7 +155,7 @@ class EditorTerrainSelected(LevelEntity, ABC):
                 self.painted_flag = False
 
             if self.is_held:
-                x, y = (m_pos - self.held_offset).tuple() # dwaiuhdwuawh
+                x, y = (m_pos - self.held_offset).tuple()
                 if not Engine.key_mod_down(c.KEY_SUBTLE_EDITING):
                     if not self.painted_flag and pg.mouse.get_pressed()[c.KEY_EDITING_PAINT]:
                         self.paint_pos_offset = pg.Vector2(self.pos.x % grid_x, self.pos.y % grid_y)
@@ -164,7 +168,7 @@ class EditorTerrainSelected(LevelEntity, ABC):
                 self.change_pos(pos)
             if self.collider.collide(pg.mouse.get_pos()):
                 if not self.is_held:
-                    self.held_offset = m_pos - self.pos # wdiuhdwaiuhd
+                    self.held_offset = m_pos - self.pos
                     self.is_held = True
 
 
@@ -180,7 +184,7 @@ class EditorTerrainSelected(LevelEntity, ABC):
                 if (self.paint_commit_last is None or
                         (abs(self.pos.x - self.paint_commit_last.x) >= s_x or
                          abs(self.pos.y - self.paint_commit_last.y) >= s_y)):
-                    self.commit_copy()
+                    self.commit()
                     self.paint_commit_last = self.pos
 
     def enlarge(self):
@@ -225,17 +229,21 @@ class EditorTerrainSelected(LevelEntity, ABC):
 
     def scrap(self):
         Level.get_instance().get_layer_overlay().remove(self.menu)
-        Level.get_instance().get_layer_level_entity().remove(self)
+        Level.get_instance().get_layer_overlay().remove(self.info_menu)
+        self.info_menu.scrap()
+        try:
+            Level.get_instance().get_layer_level_entity().remove(self)
+        except ValueError:
+            pass
         self.scrap_texture()
         self.scrap_instance()
 
-    @staticmethod
-    def get_missing_args(type_obj, already_supplied=('pos', 'scaler', 'rot')):
+    def get_missing_args(self, type_obj, already_supplied=('pos', 'scaler', 'rot')):
         sig = inspect.signature(type_obj)
         missing = []
 
         for name, param in sig.parameters.items():
-            if name in already_supplied:
+            if name in already_supplied or name in self.vars.keys():
                 continue
             if param.kind in (inspect.Parameter.VAR_POSITIONAL, inspect.Parameter.VAR_KEYWORD):
                 continue
@@ -243,6 +251,13 @@ class EditorTerrainSelected(LevelEntity, ABC):
                 missing.append(param)
 
         return missing
+
+    @classmethod
+    def split_init_vars(cls, class_, state):
+        params = inspect.signature(class_).parameters
+        init_kwargs = {k: v for k, v in state.items() if k in params}
+        leftover = {k: v for k, v in state.items() if k not in params}
+        return init_kwargs, leftover
 
     @staticmethod
     def prompt_for_missing_args(missing_params):
@@ -265,7 +280,10 @@ class EditorTerrainSelected(LevelEntity, ABC):
 
     def commit(self):
         missing = self.get_missing_args(self.type_obj)
-        extra_kwargs = self.prompt_for_missing_args(missing) if missing else {}
+        args = self.prompt_for_missing_args(missing) if missing else {}
+        args = self.vars | args
+
+        extra_kwargs, _ = self.split_init_vars(self.type_obj, args)
 
         obj = self.type_obj(pos=self.pos, scaler=self.scaler, rot=self.rot, **extra_kwargs)
         obj.change_size(self.size)
@@ -277,25 +295,6 @@ class EditorTerrainSelected(LevelEntity, ABC):
             Level.get_instance().add_level_entity(obj)
             self.edit_list.append(obj)
         if isinstance(obj, Entity):
-            Level.get_instance().add_entity(obj)
-            self.edit_list.append(obj)
-
-        self.scrap()
-
-    def commit_copy(self):
-        missing = self.get_missing_args(self.type_obj)
-        extra_kwargs = self.prompt_for_missing_args(missing) if missing else {}
-
-        obj = self.type_obj(pos=self.pos, scaler=self.scaler, rot=self.rot, **extra_kwargs)
-        obj.change_size(self.size)
-
-        if isinstance(obj, Terrain) and self.commit_needed(Level.get_instance().get_layer_level(), obj):
-            Level.get_instance().add_level(obj)
-            self.edit_list.append(obj)
-        if isinstance(obj, LevelEntity) and self.commit_needed(Level.get_instance().get_layer_level_entity(), obj):
-            Level.get_instance().add_level_entity(obj)
-            self.edit_list.append(obj)
-        if isinstance(obj, Entity) and self.commit_needed(Level.get_instance().get_layer_entity(), obj):
             Level.get_instance().add_entity(obj)
             self.edit_list.append(obj)
 
@@ -343,7 +342,17 @@ class EditorTerrainSelected(LevelEntity, ABC):
             if not self.rot == 0:
                 img = pg.transform.rotate(img, self.rot)
 
-            self.image = img
-            return img
+
         else:
-            return super().create_image()
+            img = super().create_image()
+
+        pg.draw.rect(img, "yellow", ((0, 0), img.get_size()), 3 * Camera.get_instance().zoom)
+
+        self.image = img
+        return img
+
+    def create_info_menu(self):
+        x, y = EditorTerrainSelectedInfoMenu.create_texture_size()
+        menu = EditorTerrainSelectedInfoMenu(CoordinateScreen(10, c.HEIGHT - y - 10), self.type_obj)
+        Level.get_instance().add_overlay(menu)
+        return menu

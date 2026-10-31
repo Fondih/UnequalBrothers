@@ -34,11 +34,14 @@ class RectCollider(Collider):
         else:
             super().collide(other)
 
-    def collide(self, other):
-        if self.type == Collider.Type.LEVEL and isinstance(other, RectCollider):
+    def collide(self, other, overwrite_type=False, overwrite_buttons=None):
+        if (self.type == Collider.Type.LEVEL or overwrite_type) and isinstance(other, RectCollider):
             return self.rect.colliderect(other.rect)
-        elif self.type == Collider.Type.MOUSE and isinstance(other, tuple):
-            if not self.requires_clicking or self.button_held():
+        elif (self.type == Collider.Type.MOUSE or overwrite_type) and isinstance(other, tuple):
+            if overwrite_buttons is None:
+                overwrite_buttons = self.buttons_mouse
+
+            if not self.requires_clicking or self.button_held(True, overwrite_buttons):
                 return self.rect.collidepoint(other)
         else:
             return super().collide(other)

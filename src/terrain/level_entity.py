@@ -5,15 +5,16 @@ from src.terrain.level_object import LevelObject
 
 
 class LevelEntity(LevelObject, ABC):
-    def __init__(self, pos, scaler=1, rot=0):
-        super().__init__(pos, scaler, rot)
+    def __init__(self, pos, scaler=1, rot=0, solid=True):
+        super().__init__(pos, scaler, rot, solid)
 
     def __eq__(self, other):
         return all([
             type(self) is type(other),
             self.pos == other.pos,
             self.scaler == other.scaler,
-            self.rot == other.rot
+            self.rot == other.rot,
+            self.solid == other.solid
         ])
 
     @classmethod
@@ -23,9 +24,6 @@ class LevelEntity(LevelObject, ABC):
     @classmethod
     def create_namespace(cls):
         return "terrain/level_entity/"
-
-    def create_collider(self):
-        return Collider(self.pos(), Collider.Type.LEVEL)
 
     def change_pos(self, pos):
         self.pos = pos

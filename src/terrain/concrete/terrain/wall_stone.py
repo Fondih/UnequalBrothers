@@ -18,6 +18,3 @@ class WallStone(Terrain, ABC):
     @classmethod
     def create_texture_size(cls):
         return 50, 50
-
-    def create_collider(self):
-        return RectCollider(self.pos, self.get_texture_size_scaled(self.scaler), Collider.Type.LEVEL)

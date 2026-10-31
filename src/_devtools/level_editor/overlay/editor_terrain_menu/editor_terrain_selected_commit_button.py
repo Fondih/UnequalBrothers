@@ -29,3 +29,4 @@ class EditorTerrainSelectedCommitButton(Button, ABC):
         from _devtools.level_editor.terrain.editor_terrain_selected import EditorTerrainSelected
 
         EditorTerrainSelected.get_instance().commit()
+        EditorTerrainSelected.get_instance().scrap()

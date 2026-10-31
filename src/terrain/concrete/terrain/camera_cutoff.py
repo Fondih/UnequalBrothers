@@ -17,7 +17,7 @@ from utils.nine_slice import nine_slice
 @register(["level utils"])
 class CameraCutoff(Terrain, ABC):
     def __init__(self, pos, scaler=1, rot=0):
-        super().__init__(pos, scaler=scaler, rot=rot)
+        super().__init__(pos, scaler=scaler, rot=rot, solid=False)
 
     @classmethod
     def create_name(cls):
@@ -29,10 +29,6 @@ class CameraCutoff(Terrain, ABC):
     @classmethod
     def create_texture_size(cls):
         return 50, 50
-
-    def create_collider(self):
-        return Collider(self.pos, Collider.Type.LEVEL)
-
 
     def create_image(self):
         if Engine.get_instance().run_mode == RunModes.EDITOR:
