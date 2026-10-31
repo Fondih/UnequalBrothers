@@ -1,4 +1,5 @@
 from abc import ABC
+
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from terrain.terrain import Terrain

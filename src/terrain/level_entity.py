@@ -1,7 +1,6 @@
-import pygame as pg
 from abc import ABC
+
 from collider.collider import Collider
-from level.camera import Camera
 from src.terrain.level_object import LevelObject
 
 

@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from json import JSONEncoder
+
 import pygame as pg
+
 import config as c
 from level.camera import Camera
 

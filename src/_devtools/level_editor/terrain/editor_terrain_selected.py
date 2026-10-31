@@ -1,6 +1,8 @@
 import inspect
 from abc import ABC
+
 import pygame as pg
+
 import config as c
 from _devtools.level_editor.overlay.editor_terrain_menu import menu_type_registry
 from collider.collider import Collider

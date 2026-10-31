@@ -2,8 +2,6 @@ from abc import ABC
 
 import pygame as pg
 
-from _devtools.level_editor.overlay.editor_terrain_menu.menu_type_registry import spec_menu
-from _devtools.level_editor.overlay.editor_terrain_menu.menus import Menus
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from terrain.level_entity import LevelEntity

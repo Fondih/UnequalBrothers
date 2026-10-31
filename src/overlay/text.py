@@ -1,5 +1,7 @@
 from abc import ABC
+
 import pygame as pg
+
 import src.config as c
 from collider.collider import Collider
 from overlay.screen_object import ScreenObject

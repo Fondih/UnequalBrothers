@@ -1,4 +1,5 @@
 from abc import ABC
+
 from collider.collider import Collider
 from src.terrain.level_object import LevelObject
 

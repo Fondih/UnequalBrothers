@@ -1,8 +1,10 @@
 import importlib.util
 import json
 import pkgutil
+
 import pygame as pg
 from termcolor import colored
+
 import entity.concrete as ec
 import terrain.concrete as tc
 from entity import entity_registry
@@ -204,7 +206,6 @@ class Engine:
         from datatype.coordinate import Coordinate
 
         try:
-            o = None
             match obj["type"]:
                 case "RoomTransition":
                     o = Engine.load_class(obj["type"])(Coordinate(obj["pos"][0], obj["pos"][1]), obj["target_room"], obj["target_transition_id"], obj["transition_id"], obj["scaler"], obj["rot"])

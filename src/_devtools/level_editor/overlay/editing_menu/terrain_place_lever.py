@@ -1,5 +1,7 @@
 from abc import ABC
+
 import pygame as pg
+
 from _devtools.level_editor.overlay.editing_menu.terrain_place_menu import TerrainPlaceMenu
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider

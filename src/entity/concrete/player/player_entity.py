@@ -1,6 +1,8 @@
 import math
 from abc import ABC
+
 import pygame as pg
+
 import src.config as c
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider

@@ -1,4 +1,5 @@
 from abc import ABC
+
 from collider.collider import Collider
 from overlay.screen_object import ScreenObject
 

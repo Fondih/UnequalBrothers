@@ -1,8 +1,7 @@
 from abc import ABC
+
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
-from event_handler.event_handler import Event
-from event_handler.events import Events
 from overlay.lever import Lever
 
 

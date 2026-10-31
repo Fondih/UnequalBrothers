@@ -15,13 +15,10 @@ from level.camera import Camera
 from level.dt import Dt
 from level.level import Level
 from overlay.overlays.fps_display import FPSDisplay
-from overlay.text import Text
 from run_modes import RunModes
 
-# decide gamemode, use RunModes.DEFAULT for intended gameplay
-run_mode = RunModes.EDITOR
 
-engine = Engine(run_mode)
+engine = Engine(c.GAMEMODE)
 engine.init()
 level = Level.get_instance()
 
@@ -33,7 +30,7 @@ player = PlayerEntity(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
 level.add_entity(player)
 level.add_overlay(FPSDisplay())
 
-if run_mode == RunModes.EDITOR:
+if c.GAMEMODE == RunModes.EDITOR:
     terrain_place_lever = TerrainPlaceLever(CoordinateScreen(c.WIDTH - 70, 20))
     level.add_overlay(terrain_place_lever)
     level.add_overlay(terrain_place_lever.menu)
@@ -41,10 +38,10 @@ if run_mode == RunModes.EDITOR:
     level.add_overlay(GridVisualMenuLever(CoordinateScreen(c.WIDTH - 150, 30)))
     level.add_overlay(NoclipLever(CoordinateScreen(c.WIDTH - 190, 30)))
     level.add_overlay(EditorExportButton(CoordinateScreen(20, 20)))
-if run_mode == RunModes.HACKS:
+if c.GAMEMODE == RunModes.HACKS:
     level.add_overlay(NoclipLever(CoordinateScreen(c.WIDTH - 60, 30)))
 
-Engine.import_room("room_0")
+Engine.import_room(c.ROOM_START)
 try:
     player.change_pos(level.get_player_spawner(0)[0].get_player_spawn_pos())
 except IndexError:

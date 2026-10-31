@@ -1,5 +1,7 @@
 from abc import ABC
+
 import pygame as pg
+
 import src.config as c
 from _devtools.level_editor.overlay.editing_menu.terrain_object_button import TerrainObjectButton
 from collider.collider import Collider

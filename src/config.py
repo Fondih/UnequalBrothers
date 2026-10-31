@@ -1,5 +1,7 @@
 import pygame as pg
 
+from run_modes import RunModes
+
 #setup
 WIDTH = 1280
 HEIGHT = 720
@@ -12,6 +14,8 @@ FONT_DEFAULT = "Comic Sans MS"
 ROOM_WIDTH = 2560
 ROOM_HEIGHT = 1440
 GRID_SIZE = 50
+ROOM_START = "room_0"
+GAMEMODE = RunModes.EDITOR
 
 #editor
 CAPTION_EDITOR = "Level Editor"

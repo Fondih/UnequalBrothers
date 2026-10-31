@@ -1,5 +1,7 @@
 from abc import ABC
+
 import pygame as pg
+
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from datatype.coordinate_screen import CoordinateScreen

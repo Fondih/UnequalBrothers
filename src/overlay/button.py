@@ -1,7 +1,9 @@
-from collider.collider import Collider
 from abc import ABC
-from overlay.screen_object import ScreenObject
+
 import pygame as pg
+
+from collider.collider import Collider
+from overlay.screen_object import ScreenObject
 
 
 class Button(ScreenObject, ABC):

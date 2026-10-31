@@ -1,5 +1,7 @@
 from abc import ABC
+
 import pygame as pg
+
 from level.dt import Dt
 from level.level import Level
 from terrain.level_object import LevelObject

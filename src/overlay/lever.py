@@ -1,5 +1,7 @@
 from abc import ABC
+
 import pygame as pg
+
 from collider.collider import Collider
 from overlay.button import Button
 
