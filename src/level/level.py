@@ -15,10 +15,6 @@ class Level:
         self.layer_entity = []
         self.layer_overlay = []
 
-        self.s_layer_background = pg.Surface((c.ROOM_WIDTH, c.ROOM_HEIGHT), pg.SRCALPHA, 32).convert_alpha()
-        self.s_layer_level = pg.Surface((c.ROOM_WIDTH, c.ROOM_HEIGHT), pg.SRCALPHA, 32).convert_alpha()
-        self.s_layer_level_entity = pg.Surface((c.ROOM_WIDTH, c.ROOM_HEIGHT), pg.SRCALPHA, 32).convert_alpha()
-        self.s_layer_entity = pg.Surface((c.WIDTH, c.HEIGHT), pg.SRCALPHA, 32).convert_alpha()
         self.s_layer_overlay = pg.Surface((c.WIDTH, c.HEIGHT), pg.SRCALPHA, 32).convert_alpha()
 
         Level._instance = self
@@ -44,12 +40,14 @@ class Level:
     def get_room_transitions(self):
         return [obj for obj in self.get_layer_level_entity() if obj.create_name() == "room_transition"]
 
-
     def get_room_transitions_valid(self):
         return [obj for obj in self.get_layer_level_entity() if type(obj).__name__ == "RoomTransition" and not obj.on_cd]
 
     def get_player_spawner(self, spawner_id):
         return [obj for obj in self.get_layer_level() if type(obj).__name__ == "PlayerSpawner" and obj.spawner_id == spawner_id]
+
+    def get_camara_cutoff(self):
+        return [obj for obj in self.get_layer_level() if type(obj).__name__ == "CameraCutoff"]
 
     def get_solid(self):
         return self.get_layer_level_solid() + self.get_layer_level_entity_solid()

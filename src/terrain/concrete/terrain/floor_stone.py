@@ -19,4 +19,4 @@ class FloorStone(Terrain, ABC):
         return 50, 50
 
     def create_collider(self):
-        return RectCollider(self.pos, self.get_texture_size_scaled(self.scaler), Collider.Type.LEVEL, is_solid=False)
+        return Collider(self.pos, Collider.Type.LEVEL)

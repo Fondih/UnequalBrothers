@@ -1,8 +1,5 @@
 from abc import ABC
-
 import pygame as pg
-
-import src.config as c
 from level.dt import Dt
 from level.level import Level
 from terrain.level_object import LevelObject
@@ -22,16 +19,10 @@ class Entity(LevelObject, ABC):
     def create_namespace(cls):
         return "entity/"
 
-    @classmethod
-    def create_pos_offset(cls, scaler):
-        x, y = cls.get_texture_size_scaled(scaler)
+    def create_pos_offset(self, scaler):
+        x, y = self.get_texture_size_scaled(scaler)
 
         return pg.Vector2(-x / 2, -y)
-
-    def render(self, layer):
-        img_pos = (self.pos + self.create_pos_offset(self.scaler)).convert_to_surface()
-
-        layer.blit(self.image, img_pos.tuple())
 
     def move(self, move):
         move_x, move_y = (move.x, move.y)

@@ -1,11 +1,8 @@
 from abc import ABC, abstractmethod
 from json import JSONEncoder
-
 import pygame as pg
-
-from collider.collider import Collider
-from event_handler.event_handler import Event
-from event_handler.events import Events
+import config as c
+from level.camera import Camera
 
 
 class LevelObject(ABC):
@@ -15,6 +12,7 @@ class LevelObject(ABC):
         self.pos = pos
         self.scaler = scaler
         self.rot = rot
+        self.size = self.create_texture_size()
         cls = type(self)
         if cls._texture is None:
             cls._texture = self.create_texture()
@@ -56,9 +54,13 @@ class LevelObject(ABC):
     def create_texture_size(cls):
         return 1, 1
 
-    @classmethod
-    def get_texture_size_scaled(cls, scaler):
-        x, y = cls.create_texture_size()
+    def change_size(self, size):
+        self.size = size
+        self.image = self.create_image()
+        self.collider = self.create_collider()
+
+    def get_texture_size_scaled(self, scaler):
+        x, y = self.size
 
         return x * scaler, y * scaler
 
@@ -87,12 +89,29 @@ class LevelObject(ABC):
 
             return pg.image.load("assets/textures/missing_texture.png").convert()
 
+    def render(self, screen):
+        if self.image is not None:
+            cam = Camera.get_instance()
+            off = self.create_pos_offset(self.scaler)
+            x = (self.pos.x + off.x - cam.pos.x) * cam.zoom + c.WIDTH / 2
+            y = (self.pos.y + off.y - cam.pos.y) * cam.zoom + c.HEIGHT / 2
+
+            rect = self.image.get_rect(topleft=(x, y))
+            if rect.colliderect(screen.get_rect()):
+                screen.blit(self.image, rect)
+
     def create_image(self):
         img = self.get_texture()
-        img = pg.transform.scale(img, self.create_texture_size())
-        img = pg.transform.scale_by(img, self.scaler)
-        img = pg.transform.rotate(img, self.rot)
 
+        sx, sy = self.size
+        sx *= self.scaler * Camera.get_instance().zoom
+        sy *= self.scaler * Camera.get_instance().zoom
+
+        img = pg.transform.scale(img, (sx, sy))
+        if not self.rot == 0:
+            img = pg.transform.rotate(img, self.rot)
+
+        self.image = img
         return img
 
     @abstractmethod
@@ -104,10 +123,6 @@ class LevelObject(ABC):
         return pg.Vector2(0, 0)
 
     def update(self):
-        pass
-
-    @abstractmethod
-    def render(self, layer):
         pass
 
     @classmethod
@@ -125,6 +140,7 @@ class EncodeLevelObject(JSONEncoder):
             "type": o.get_type(),
             "pos": o.pos.tuple(),
             "scaler": o.scaler,
+            "size": o.size,
             "rot": o.rot
         }
 
@@ -136,6 +152,7 @@ class EncodeLevelObject(JSONEncoder):
             "type": o.get_type(),
             "pos": o.pos.tuple(),
             "scaler": o.scaler,
+            "size": o.size,
             "rot": o.rot,
             "target_room": o.target_room,
             "target_transition_id": o.target_transition_id,
@@ -150,6 +167,7 @@ class EncodeLevelObject(JSONEncoder):
             "type": o.get_type(),
             "pos": o.pos.tuple(),
             "scaler": o.scaler,
+            "size": o.size,
             "rot": o.rot,
             "spawner_id": o.spawner_id,
         }

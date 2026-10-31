@@ -1,11 +1,8 @@
 import inspect
 from abc import ABC
-
 import pygame as pg
-
 import config as c
 from _devtools.level_editor.overlay.editor_terrain_menu import menu_type_registry
-from _devtools.level_editor.overlay.editor_terrain_menu.menus import Menus
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from datatype.coordinate import Coordinate
@@ -14,10 +11,12 @@ from engine import Engine
 from entity.entity import Entity
 from event_handler.event_handler import Event
 from event_handler.events import Events
+from level.camera import Camera
 from level.dt import Dt
 from level.level import Level
 from terrain.level_entity import LevelEntity
 from terrain.terrain import Terrain
+from utils.nine_slice import nine_slice
 
 
 class EditorTerrainSelected(LevelEntity, ABC):
@@ -39,6 +38,9 @@ class EditorTerrainSelected(LevelEntity, ABC):
         self.painted_flag = False
         self.paint_commit_last = None
         self.paint_pos_offset = pg.Vector2(0, 0)
+        self.resize = False
+        self.start_size = (0, 0)
+        self.start_mouse = (0, 0)
 
         EditorTerrainSelected._instance = self
 
@@ -49,6 +51,9 @@ class EditorTerrainSelected(LevelEntity, ABC):
     @classmethod
     def is_colliding(cls):
         return False
+
+    def set_resize(self, state):
+        self.resize = bool(state)
 
     @classmethod
     def create_namespace(cls):
@@ -66,6 +71,8 @@ class EditorTerrainSelected(LevelEntity, ABC):
         return RectCollider((self.pos + self.create_pos_offset(self.scaler)).convert_to_surface(), self.get_texture_size_scaled(self.scaler), Collider.Type.MOUSE, is_solid=False, buttons_mouse=[c.KEY_EDITING_DRAG, c.KEY_EDITING_PAINT])
 
     def create_menu(self):
+        from _devtools.level_editor.overlay.editor_terrain_menu.menus import Menus
+
         try:
             menu_type = menu_type_registry.get(self.type_obj).value
         except KeyError:
@@ -95,51 +102,84 @@ class EditorTerrainSelected(LevelEntity, ABC):
     def update(self):
         super().update()
 
-        if self.paint_commit_last is not None and not pg.mouse.get_pressed()[c.KEY_EDITING_PAINT]:
-            self.paint_pos_offset = pg.Vector2(0, 0)
-            self.paint_commit_last = None
-            self.painted_flag = False
-
         m_x, m_y = pg.mouse.get_pos()
-        m_pos = CoordinateScreen(m_x, m_y)
+        m_pos = CoordinateScreen(m_x, m_y).convert_to_world()
 
-        if pg.mouse.get_pressed()[c.KEY_EDITING_PAINT]:
-            grid_x, grid_y = self.get_texture_size_scaled(self.scaler)
-        else:
+        if self.resize:
             grid_x, grid_y = (c.GRID_SIZE, c.GRID_SIZE)
 
-        if self.is_held:
-            x, y = (m_pos - self.held_offset).convert_to_world().tuple()
-            if not Engine.key_mod_down(c.KEY_SUBTLE_EDITING):
-                if not self.painted_flag and pg.mouse.get_pressed()[c.KEY_EDITING_PAINT]:
-                    self.paint_pos_offset = pg.Vector2(self.pos.x % grid_x, self.pos.y % grid_y)
-                    self.painted_flag = True
+            if self.is_held:
+                start_sx, start_sy = self.start_size
+                d_x, d_y = (m_pos - self.start_mouse).tuple()
 
-                x = self.snap(x, grid_x, self.paint_pos_offset.x)
-                y = self.snap(y, grid_y, self.paint_pos_offset.y)
-            pos = Coordinate(x, y)
+                sx = start_sx + d_x
+                sy = start_sy + d_y
 
-            self.change_pos(pos)
-        if self.collider.collide(pg.mouse.get_pos()):
-            if not self.is_held:
-                self.held_offset = m_pos - self.pos.convert_to_surface()
-                self.is_held = True
+                if not Engine.key_mod_down(c.KEY_SUBTLE_EDITING):
+                    sx = self.snap(sx, grid_x)
+                    sy = self.snap(sy, grid_y)
+
+                sx = max(sx, grid_x)
+                sy = max(sy, grid_y)
+
+                self.change_size((sx, sy))
+            if self.collider.collide(pg.mouse.get_pos()):
+                if not self.is_held:
+                    self.start_mouse = m_pos
+                    self.start_size = self.size
+                    self.is_held = True
+
+            if self.is_held and not self.collider.button_held():
+                self.is_held = False
+
+            s_x, s_y = self.get_texture_size_scaled(self.scaler)
+            o_vec = pg.Vector2(s_x // 2, 0)
+            self.menu.change_pos((self.pos + o_vec + self.menu.create_offset() + self.create_pos_offset(
+                self.scaler)).convert_to_surface())
+
+        else:
+            if pg.mouse.get_pressed()[c.KEY_EDITING_PAINT]:
+                grid_x, grid_y = self.get_texture_size_scaled(self.scaler)
+            else:
+                grid_x, grid_y = (c.GRID_SIZE, c.GRID_SIZE)
+
+            if self.paint_commit_last is not None and not pg.mouse.get_pressed()[c.KEY_EDITING_PAINT]:
+                self.paint_pos_offset = pg.Vector2(0, 0)
+                self.paint_commit_last = None
+                self.painted_flag = False
+
+            if self.is_held:
+                x, y = (m_pos - self.held_offset).tuple() # dwaiuhdwuawh
+                if not Engine.key_mod_down(c.KEY_SUBTLE_EDITING):
+                    if not self.painted_flag and pg.mouse.get_pressed()[c.KEY_EDITING_PAINT]:
+                        self.paint_pos_offset = pg.Vector2(self.pos.x % grid_x, self.pos.y % grid_y)
+                        self.painted_flag = True
+
+                    x = self.snap(x, grid_x, self.paint_pos_offset.x)
+                    y = self.snap(y, grid_y, self.paint_pos_offset.y)
+                pos = Coordinate(x, y)
+
+                self.change_pos(pos)
+            if self.collider.collide(pg.mouse.get_pos()):
+                if not self.is_held:
+                    self.held_offset = m_pos - self.pos # wdiuhdwaiuhd
+                    self.is_held = True
 
 
-        if self.is_held and not self.collider.button_held():
-            self.is_held = False
+            if self.is_held and not self.collider.button_held():
+                self.is_held = False
 
 
-        s_x, s_y = self.get_texture_size_scaled(self.scaler)
-        o_vec = pg.Vector2(s_x // 2, 0)
-        self.menu.change_pos((self.pos + o_vec + self.menu.create_offset() + self.create_pos_offset(self.scaler)).convert_to_surface())
+            s_x, s_y = self.get_texture_size_scaled(self.scaler)
+            o_vec = pg.Vector2(s_x // 2, 0)
+            self.menu.change_pos((self.pos + o_vec + self.menu.create_offset() + self.create_pos_offset(self.scaler)).convert_to_surface())
 
-        if pg.mouse.get_pressed()[c.KEY_EDITING_PAINT]:
-            if (self.paint_commit_last is None or
-                    (abs(self.pos.x - self.paint_commit_last.x) >= s_x or
-                     abs(self.pos.y - self.paint_commit_last.y) >= s_y)):
-                self.commit_copy()
-                self.paint_commit_last = self.pos
+            if pg.mouse.get_pressed()[c.KEY_EDITING_PAINT]:
+                if (self.paint_commit_last is None or
+                        (abs(self.pos.x - self.paint_commit_last.x) >= s_x or
+                         abs(self.pos.y - self.paint_commit_last.y) >= s_y)):
+                    self.commit_copy()
+                    self.paint_commit_last = self.pos
 
     def enlarge(self):
         size_x, size_y = self.get_texture_size_scaled(self.scaler)
@@ -226,10 +266,10 @@ class EditorTerrainSelected(LevelEntity, ABC):
         extra_kwargs = self.prompt_for_missing_args(missing) if missing else {}
 
         obj = self.type_obj(pos=self.pos, scaler=self.scaler, rot=self.rot, **extra_kwargs)
+        obj.change_size(self.size)
 
         if isinstance(obj, Terrain):
             Level.get_instance().add_level(obj)
-            Engine.render_terrain()
             self.edit_list.append(obj)
         if isinstance(obj, LevelEntity):
             Level.get_instance().add_level_entity(obj)
@@ -245,10 +285,10 @@ class EditorTerrainSelected(LevelEntity, ABC):
         extra_kwargs = self.prompt_for_missing_args(missing) if missing else {}
 
         obj = self.type_obj(pos=self.pos, scaler=self.scaler, rot=self.rot, **extra_kwargs)
+        obj.change_size(self.size)
 
         if isinstance(obj, Terrain) and self.commit_needed(Level.get_instance().get_layer_level(), obj):
             Level.get_instance().add_level(obj)
-            Engine.render_terrain()
             self.edit_list.append(obj)
         if isinstance(obj, LevelEntity) and self.commit_needed(Level.get_instance().get_layer_level_entity(), obj):
             Level.get_instance().add_level_entity(obj)
@@ -267,7 +307,6 @@ class EditorTerrainSelected(LevelEntity, ABC):
             if isinstance(item, Terrain):
                 if Level.get_instance().get_layer_level().__contains__(item):
                     Level.get_instance().get_layer_level().remove(item)
-                    Engine.render_terrain()
             if isinstance(item, LevelEntity):
                 if Level.get_instance().get_layer_level_entity().__contains__(item):
                     Level.get_instance().get_layer_level_entity().remove(item)
@@ -286,4 +325,23 @@ class EditorTerrainSelected(LevelEntity, ABC):
     @staticmethod
     @Event.listener(Events.ROOM_LOADED)
     def room_changed(name, namespace=None):
-        EditorTerrainSelected.get_instance().scrap()
+        try:
+            EditorTerrainSelected.get_instance().scrap()
+        except AttributeError:
+            pass
+
+    def create_image(self):
+        if self.type_obj.__name__ == "CameraCutoff":
+            img = self.get_texture()
+            sx, sy = self.size
+            sx *= self.scaler * Camera.get_instance().zoom
+            sy *= self.scaler * Camera.get_instance().zoom
+
+            img = nine_slice(img, (sx, sy), (25, 25, 25, 25))
+            if not self.rot == 0:
+                img = pg.transform.rotate(img, self.rot)
+
+            self.image = img
+            return img
+        else:
+            return super().create_image()

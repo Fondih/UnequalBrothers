@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+
 from collider.collider import Collider
 from entity.living_entity import LivingEntity
 

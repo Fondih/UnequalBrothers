@@ -1,5 +1,7 @@
+import pygame as pg
 from abc import ABC
 from collider.collider import Collider
+from level.camera import Camera
 from src.terrain.level_object import LevelObject
 
 
@@ -32,7 +34,3 @@ class LevelEntity(LevelObject, ABC):
 
     def update(self):
         pass
-
-    def render(self, layer):
-        img_pos = self.pos + self.create_pos_offset(self.scaler)
-        layer.blit(self.image, img_pos.tuple())

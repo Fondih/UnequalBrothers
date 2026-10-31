@@ -14,26 +14,24 @@ from entity.concrete.player.player_entity import PlayerEntity
 from level.camera import Camera
 from level.dt import Dt
 from level.level import Level
+from overlay.overlays.fps_display import FPSDisplay
 from overlay.text import Text
 from run_modes import RunModes
 
-# decides gamemode, use RunModes.DEFAULT for intended gameplay
-run_mode = RunModes.DEFAULT
+# decide gamemode, use RunModes.DEFAULT for intended gameplay
+run_mode = RunModes.EDITOR
 
 engine = Engine(run_mode)
 engine.init()
 level = Level.get_instance()
 
 #prepare terrain
-layer_background = level.s_layer_background
-layer_level = level.s_layer_level
-layer_level_entity = level.s_layer_level_entity
-layer_entity = level.s_layer_entity
 layer_overlay = level.s_layer_overlay
 
 player = PlayerEntity(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
 
 level.add_entity(player)
+level.add_overlay(FPSDisplay())
 
 if run_mode == RunModes.EDITOR:
     terrain_place_lever = TerrainPlaceLever(CoordinateScreen(c.WIDTH - 70, 20))
@@ -45,10 +43,6 @@ if run_mode == RunModes.EDITOR:
     level.add_overlay(EditorExportButton(CoordinateScreen(20, 20)))
 if run_mode == RunModes.HACKS:
     level.add_overlay(NoclipLever(CoordinateScreen(c.WIDTH - 60, 30)))
-
-#prerender constant objects
-engine.render_bg()
-engine.render_terrain()
 
 Engine.import_room("room_0")
 try:
@@ -78,16 +72,8 @@ while engine.running:
     Camera.get_instance().set_pos(player.pos)
 
     #draw
-    engine.render_entity()
-    engine.render_level_entity()
-    engine.render_overlay()
-
-    fps_display_pos = CoordinateScreen(20, 65) if run_mode == RunModes.EDITOR else CoordinateScreen(0, 0)
-
-    fps_display = Text(str(engine.clock.get_fps())[:3], "black", fps_display_pos, (0, 30))
-    fps_display.render(layer_overlay)
-
     engine.draw()
+    engine.render_overlay()
 
     pg.display.flip()
 

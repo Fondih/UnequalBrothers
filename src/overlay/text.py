@@ -25,7 +25,7 @@ class Text(ScreenObject, ABC):
         return self.size
 
     def create_font_size(self):
-        x, y = self.create_texture_size()
+        x, y = self.size
 
         return int(y * self.scaler)
 

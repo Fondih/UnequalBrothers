@@ -6,7 +6,6 @@ from event_handler.events import Events
 from overlay.lever import Lever
 
 
-# TODO: Implement this class
 # Currently not implemented, supposed to let you select an already placed
 # terrain as EditorTerrainSelected
 class SelectTerrainLever(Lever, ABC):

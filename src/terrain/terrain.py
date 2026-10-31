@@ -7,6 +7,7 @@ class Terrain(LevelObject, ABC):
     def __init__(self, pos, scaler=1, rot=0):
         super().__init__(pos, scaler, rot)
 
+
     def __eq__(self, other):
         return all([
             type(self) is type(other),
@@ -28,7 +29,3 @@ class Terrain(LevelObject, ABC):
 
     def update(self):
         pass
-
-    def render(self, layer):
-        img_pos = self.pos + self.create_pos_offset(self.scaler)
-        layer.blit(self.image, img_pos.tuple())
