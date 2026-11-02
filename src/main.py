@@ -9,7 +9,7 @@ from level.dt import Dt
 from level.level import Level
 
 
-engine = Engine(c.GAMEMODE)
+engine = Engine()
 engine.init()
 level = Level.get_instance()
 

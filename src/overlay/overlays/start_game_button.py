@@ -5,6 +5,7 @@ from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from engine import Engine
 from overlay.button import Button
+from run_modes import RunModes
 
 
 class StartGameButton(Button, ABC):
@@ -23,4 +24,4 @@ class StartGameButton(Button, ABC):
         return RectCollider(self.pos, self.get_texture_size_scaled(), Collider.Type.MOUSE, is_solid=False)
 
     def clicked(self):
-        Engine.get_instance().activate_game(c.ROOM_START)
+        Engine.get_instance().activate_game(RunModes.DEFAULT, c.ROOM_START)

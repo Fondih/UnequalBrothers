@@ -18,7 +18,7 @@ from terrain import terrain_registry
 class Engine:
     _instance = None
 
-    def __init__(self, run_mode):
+    def __init__(self):
         if Engine._instance is not None:
             raise RuntimeError("Engine already exists - use Engine.get_instance() instead")
 
@@ -27,7 +27,7 @@ class Engine:
         self.running = False
         self.active = False
         self.activated_once = False
-        self.run_mode = run_mode
+        self.run_mode = RunModes.DEFAULT
         self.editing_mode = False
         self.player = None
         self.registries = {}
@@ -53,12 +53,12 @@ class Engine:
         Level()
         Dt()
         self.clock = pg.time.Clock()
-        pg.display.set_caption(c.CAPTION_EDITOR if self.run_mode == RunModes.EDITOR else c.CAPTION_DEFAULT)
+        pg.display.set_caption(c.CAPTION_DEFAULT)
         self.running = True
 
         Level.get_instance().add_overlay(TitlescreenMenu(CoordinateScreen(0, 0)))
 
-    def activate_game(self, room):
+    def activate_game(self, gamemode, room):
         from _devtools.level_editor.overlay.controllers.terrain_pick_controller import TerrainPickController
         from _devtools.level_editor.overlay.gui.editing_gui_menu import EditingGuiMenu
         from datatype.coordinate_screen import CoordinateScreen
@@ -69,6 +69,7 @@ class Engine:
         from level.level import Level
 
         Level.get_instance().clear_level()
+        self.run_mode = gamemode
 
         # spawn Player
         self.player = PlayerEntity(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
