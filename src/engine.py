@@ -119,17 +119,17 @@ class Engine:
 
         level = Level.get_instance()
 
-        for entity in level.get_layer_entity():
+        for entity in level.layer_entity:
             entity.update()
 
     @staticmethod
-    def update_level_entity():
+    def update_terrain():
         from level.level import Level
 
         level = Level.get_instance()
 
-        for level_entity in level.get_layer_level_entity():
-            level_entity.update()
+        for terrain in level.layer_level:
+            terrain.update()
 
     @staticmethod
     def update_overlay():
@@ -137,7 +137,7 @@ class Engine:
 
         level = Level.get_instance()
 
-        for obj in level.get_layer_overlay():
+        for obj in level.layer_overlay:
             obj.update()
 
     @staticmethod
@@ -158,7 +158,6 @@ class Engine:
 
         for layer in (level.get_layer_background(),
                       level.get_layer_level(),
-                      level.get_layer_level_entity(),
                       level.get_layer_entity()):
             for obj in layer:
                 obj.render(self.screen)
@@ -170,8 +169,8 @@ class Engine:
     def zoom_changed(cam, zoom):
         from level.level import Level
         level = Level.get_instance()
-        for layer in (level.get_layer_background(), level.get_layer_level(),
-                      level.get_layer_level_entity(), level.get_layer_entity()):
+        for layer in (level.layer_background, level.layer_level,
+                      level.layer_entity):
             for obj in layer:
                 obj.create_image()
 
@@ -201,7 +200,6 @@ class Engine:
         with open(path_file + name_file + '_' + str(id_file) + '.json', 'w', encoding='utf-8') as f:
             data = json.dumps({'layer_background': Level.get_instance().get_layer_background(),
                                'layer_level': Level.get_instance().get_layer_level(),
-                               'layer_level_entity': Level.get_instance().get_layer_level_entity(),
                                'layer_entity': Level.get_instance().get_layer_entity_playerless()},
                               sort_keys=True, indent=4, cls=EncodeLevelObject)
             print(f"Exported room as {name_file}_{str(id_file)}.json")
@@ -222,11 +220,9 @@ class Engine:
                 data = json.load(f)
                 layer_bg = data["layer_background"]
                 layer_level = data["layer_level"]
-                layer_level_entity = data["layer_level_entity"]
                 layer_entity = data["layer_entity"]
 
                 level.cleanse_level()
-                level.cleanse_level_entity()
                 level.cleanse_background()
                 level.cleanse_entity_playerless()
 
@@ -238,10 +234,6 @@ class Engine:
                     o = Engine.get_instance().create_import_obj(obj)
                     if o is not None:
                         level.add_level(o)
-                for obj in layer_level_entity:
-                    o = Engine.get_instance().create_import_obj(obj)
-                    if o is not None:
-                        level.add_level_entity(o)
                 for obj in layer_entity:
                     o = Engine.get_instance().create_import_obj(obj)
                     if o is not None:

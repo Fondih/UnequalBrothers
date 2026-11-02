@@ -3,12 +3,10 @@ import config as c
 from _devtools.level_editor.terrain.editor_terrain_selected import EditorTerrainSelected
 from datatype.coordinate_screen import CoordinateScreen
 from engine import Engine
-from entity.concrete.player.player_entity import PlayerEntity
 from event_handler.events import Events
 from level.level import Level
 from overlay.menu import Menu
 from event_handler.event_handler import Event
-from terrain.concrete.terrain.camera_cutoff import CameraCutoff
 
 
 class TerrainPickController(Menu):
@@ -77,7 +75,7 @@ class TerrainPickController(Menu):
                     vars_t.pop("image")
                     vars_t.pop("collider")
                     obj.vars = vars_t
-                    Level.get_instance().add_level_entity(obj)
+                    Level.get_instance().add_level(obj)
 
                 self.prev_pressed = True
         elif self.prev_pressed:
@@ -85,7 +83,7 @@ class TerrainPickController(Menu):
 
     def pick_terrain(self):
         collided = []
-        terrains = [o for o in Level.get_instance().get_terrain_all()
+        terrains = [o for o in Level.get_instance().get_obj_all()
                     if not type(o).__name__ == "EditorTerrainSelected"
                     and not type(o).__name__ == "PlayerEntity"
                     and (Engine.key_mod_down(c.KEY_SUBTLE_EDITING) or not type(o).__name__ == "CameraCutoff")]
@@ -101,8 +99,8 @@ class TerrainPickController(Menu):
             return
 
         terrain = self.collided.pop(0)
-        for layer in (Level.get_instance().layer_background, Level.get_instance().layer_level,
-                      Level.get_instance().layer_level_entity, Level.get_instance().layer_entity):
+        for layer in (Level.get_instance().layer_background, Level.get_instance().layer_level
+                      , Level.get_instance().layer_entity):
             if terrain in layer:
                 self.terrain_prev = layer, terrain
                 layer.remove(terrain)

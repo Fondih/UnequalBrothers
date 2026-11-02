@@ -4,15 +4,13 @@ import pygame as pg
 
 from _devtools.level_editor.overlay.editor_terrain_menu.menu_type_registry import spec_menu
 from _devtools.level_editor.overlay.editor_terrain_menu.menus import Menus
-from collider.collider import Collider
-from collider.colliders.rect_collider import RectCollider
-from terrain.level_entity import LevelEntity
+from terrain.terrain import Terrain
 from terrain.terrain_registry import register
 
 
 @spec_menu(Menus.RESIZABLE_RECT)
 @register(["level utils"])
-class RoomTransition(LevelEntity, ABC):
+class RoomTransition(Terrain, ABC):
     def __init__(self, pos, target_room: str, target_transition_id: int, transition_id: int, scaler=1, rot=0):
         super().__init__(pos, scaler=scaler, rot=rot, solid=False)
 

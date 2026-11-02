@@ -29,7 +29,7 @@ while engine.running:
 
     #update
     engine.update_entity()
-    engine.update_level_entity()
+    engine.update_terrain()
     engine.update_overlay()
 
     # update camera

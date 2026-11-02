@@ -18,12 +18,11 @@ from event_handler.events import Events
 from level.camera import Camera
 from level.dt import Dt
 from level.level import Level
-from terrain.level_entity import LevelEntity
 from terrain.terrain import Terrain
 from utils.nine_slice import nine_slice
 
 
-class EditorTerrainSelected(LevelEntity, ABC):
+class EditorTerrainSelected(Terrain, ABC):
     _instance = None
     edit_list = []
 
@@ -107,6 +106,10 @@ class EditorTerrainSelected(LevelEntity, ABC):
 
     def update(self):
         super().update()
+
+        if pg.key.get_pressed()[c.KEY_DISCARD_SELECTED]:
+            self.scrap()
+            return
 
         m_x, m_y = pg.mouse.get_pos()
         m_pos = CoordinateScreen(m_x, m_y).convert_to_world()
@@ -232,7 +235,7 @@ class EditorTerrainSelected(LevelEntity, ABC):
         Level.get_instance().get_layer_overlay().remove(self.info_menu)
         self.info_menu.scrap()
         try:
-            Level.get_instance().get_layer_level_entity().remove(self)
+            Level.get_instance().layer_level.remove(self)
         except ValueError:
             pass
         self.scrap_texture()
@@ -291,9 +294,6 @@ class EditorTerrainSelected(LevelEntity, ABC):
         if isinstance(obj, Terrain):
             Level.get_instance().add_level(obj)
             self.edit_list.append(obj)
-        if isinstance(obj, LevelEntity):
-            Level.get_instance().add_level_entity(obj)
-            self.edit_list.append(obj)
         if isinstance(obj, Entity):
             Level.get_instance().add_entity(obj)
             self.edit_list.append(obj)
@@ -308,9 +308,6 @@ class EditorTerrainSelected(LevelEntity, ABC):
             if isinstance(item, Terrain):
                 if Level.get_instance().get_layer_level().__contains__(item):
                     Level.get_instance().get_layer_level().remove(item)
-            if isinstance(item, LevelEntity):
-                if Level.get_instance().get_layer_level_entity().__contains__(item):
-                    Level.get_instance().get_layer_level_entity().remove(item)
             if isinstance(item, Entity):
                 if Level.get_instance().get_layer_entity().__contains__(item):
                     Level.get_instance().get_layer_entity().remove(item)

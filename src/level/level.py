@@ -11,7 +11,6 @@ class Level:
             raise RuntimeError("Level already exists - use Level.get_instance() instead")
         self.layer_background = []
         self.layer_level = []
-        self.layer_level_entity = []
         self.layer_entity = []
         self.layer_overlay = []
 
@@ -19,8 +18,8 @@ class Level:
 
         Level._instance = self
 
-    def get_terrain_all(self):
-        return self.layer_background + self.layer_level + self.layer_level_entity + self.layer_entity
+    def get_obj_all(self):
+        return self.layer_background + self.layer_level + self.layer_entity
 
     def get_layer_background(self):
         return self.layer_background
@@ -31,20 +30,11 @@ class Level:
     def get_layer_level_colliding(self):
         return [obj for obj in self.get_layer_level() if obj.is_colliding()]
 
-    def get_layer_level_entity_colliding(self):
-        return [obj for obj in self.get_layer_level_entity() if obj.is_colliding()]
-
-    def get_layer_level_solid(self):
-        return [obj for obj in self.get_layer_level_colliding() if obj.collider.is_solid]
-
-    def get_layer_level_entity_solid(self):
-        return [obj for obj in self.get_layer_level_entity_colliding() if obj.collider.is_solid]
-
     def get_room_transitions(self):
-        return [obj for obj in self.get_layer_level_entity() if obj.create_name() == "room_transition"]
+        return [obj for obj in self.layer_level if type(obj).__name__ == "RoomTransition"]
 
     def get_room_transitions_valid(self):
-        return [obj for obj in self.get_layer_level_entity() if type(obj).__name__ == "RoomTransition" and not obj.on_cd]
+        return [obj for obj in self.get_room_transitions() if not obj.on_cd]
 
     def get_player_spawner(self, spawner_id):
         return [obj for obj in self.get_layer_level() if type(obj).__name__ == "PlayerSpawner" and obj.spawner_id == spawner_id]
@@ -53,7 +43,7 @@ class Level:
         return [obj for obj in self.get_layer_level() if type(obj).__name__ == "CameraCutoff"]
 
     def get_solid(self):
-        return self.get_layer_level_solid() + self.get_layer_level_entity_solid()
+        return [obj for obj in self.get_layer_level_colliding() if obj.collider.is_solid]
 
     def get_layer_level_entity(self):
         return self.layer_level_entity
@@ -70,7 +60,6 @@ class Level:
     def clear_level(self):
         self.layer_level = []
         self.layer_entity = []
-        self.layer_level_entity = []
         self.layer_overlay = []
         self.layer_overlay = []
 
@@ -80,9 +69,6 @@ class Level:
 
     def add_level(self, obj):
         self.layer_level.append(obj)
-
-    def add_level_entity(self, obj):
-        self.layer_level_entity.append(obj)
 
     def add_entity(self, obj):
         self.layer_entity.append(obj)
@@ -96,9 +82,6 @@ class Level:
     def cleanse_entity_playerless(self):
         from entity.concrete.player.player_entity import PlayerEntity
         self.layer_entity = [PlayerEntity.get_instance()]
-
-    def cleanse_level_entity(self):
-        self.layer_level_entity = []
 
     def cleanse_background(self):
         self.layer_background = []
