@@ -31,7 +31,8 @@ class Menu(ScreenObject, ABC):
 
     def render(self, layer):
         if self.shown:
-            layer.blit(self.image, self.pos.tuple())
+            if self.image is not None:
+                layer.blit(self.image, self.pos.tuple())
 
             for obj in self.content:
                 obj.render(layer)

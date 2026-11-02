@@ -67,6 +67,14 @@ class Level:
     def get_layer_overlay(self):
         return self.layer_overlay
 
+    def clear_level(self):
+        self.layer_level = []
+        self.layer_entity = []
+        self.layer_level_entity = []
+        self.layer_overlay = []
+        self.layer_overlay = []
+
+
     def add_background(self, obj):
         self.layer_background.append(obj)
 

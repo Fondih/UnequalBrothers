@@ -2,6 +2,7 @@ import importlib.util
 import json
 import pkgutil
 
+import config as c
 import pygame as pg
 from termcolor import colored
 
@@ -24,8 +25,11 @@ class Engine:
         self.screen = None
         self.clock = None
         self.running = False
+        self.active = False
+        self.activated_once = False
         self.run_mode = run_mode
         self.editing_mode = False
+        self.player = None
         self.registries = {}
 
         Engine._instance = self
@@ -33,12 +37,13 @@ class Engine:
     def init(self):
         import os
         import pygame as pg
-        import src.config as c
         from datatype.coordinate import Coordinate
         from level.camera import Camera
         from level.dt import Dt
         from level.level import Level
-        from _devtools.level_editor.overlay.editing_menu.terrain_pick_controller import TerrainPickController
+        from overlay.overlays.titlescreen_menu import TitlescreenMenu
+        from datatype.coordinate_screen import CoordinateScreen
+
 
         pg.init()
         os.system('color')
@@ -47,16 +52,58 @@ class Engine:
         Camera(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
         Level()
         Dt()
-        if self.run_mode == RunModes.EDITOR:
-            TerrainPickController()
         self.clock = pg.time.Clock()
         pg.display.set_caption(c.CAPTION_EDITOR if self.run_mode == RunModes.EDITOR else c.CAPTION_DEFAULT)
         self.running = True
 
-        #import all gameobjects to add to registry
-        self.import_all_submodules(tc)
-        self.import_all_submodules(ec)
-        self.registries = terrain_registry.get_all() | entity_registry.get_all()
+        Level.get_instance().add_overlay(TitlescreenMenu(CoordinateScreen(0, 0)))
+
+    def activate_game(self, room):
+        from _devtools.level_editor.overlay.controllers.terrain_pick_controller import TerrainPickController
+        from _devtools.level_editor.overlay.gui.editing_gui_menu import EditingGuiMenu
+        from datatype.coordinate_screen import CoordinateScreen
+        from _devtools.level_editor.overlay.gui.hacker_gui_menu import HackerGuiMenu
+        from overlay.overlays.default_gui_menu import DefaultGuiMenu
+        from datatype.coordinate import Coordinate
+        from entity.concrete.player.player_entity import PlayerEntity
+        from level.level import Level
+
+        Level.get_instance().clear_level()
+
+        # spawn Player
+        self.player = PlayerEntity(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
+        Level.get_instance().add_entity(self.player)
+
+        self.active = True
+        if not self.activated_once:
+            if self.run_mode == RunModes.EDITOR:
+                TerrainPickController()
+
+            # import all gameobjects to add to registry
+            self.import_all_submodules(tc)
+            self.import_all_submodules(ec)
+            self.registries = terrain_registry.get_all() | entity_registry.get_all()
+
+        # Set Gui based on Gamemode
+        if self.run_mode == RunModes.EDITOR:
+            Level.get_instance().add_overlay(EditingGuiMenu(CoordinateScreen(0, 0)))
+        if self.run_mode == RunModes.HACKS:
+            Level.get_instance().add_overlay(HackerGuiMenu(CoordinateScreen(0, 0)))
+        if self.run_mode == RunModes.DEFAULT:
+            Level.get_instance().add_overlay(DefaultGuiMenu(CoordinateScreen(0, 0)))
+
+        # load Room
+        Engine.import_room(room)
+
+        # set player pos
+        try:
+            self.player.change_pos(Level.get_instance().get_player_spawner(0)[0].get_player_spawn_pos())
+        except IndexError:
+            print(colored("Could not find player spawner", "red"))
+            self.player.change_pos(Coordinate(0, 0))
+
+    def deactivate_game(self):
+        self.active = False
 
     @staticmethod
     def import_all_submodules(package):
@@ -228,8 +275,8 @@ class Engine:
     @staticmethod
     def load_class(name):
         reg = Engine.get_instance().registries
-        c, _ = reg[name]
-        return c
+        cs, _ = reg[name]
+        return cs
 
     @staticmethod
     def create_obj_files_root():
