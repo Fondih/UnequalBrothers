@@ -18,20 +18,13 @@ from run_modes import RunModes
 
 @register(["player"])
 class PlayerEntity(LivingEntity, ABC):
-    _instance = None
-
-    def __init__(self, pos, scaler=1, speed=c.PLAYER_SPEED):
-        if PlayerEntity._instance is not None:
-            raise RuntimeError("Player already exists - use Player.get_instance() instead")
-
+    def __init__(self, pos, scaler=1, rot=0, speed=c.PLAYER_SPEED):
         self.noclip = True if (Engine.get_instance().run_mode == RunModes.EDITOR or
                                Engine.get_instance().run_mode == RunModes.HACKS) else False
 
-        super().__init__(pos, scaler)
+        super().__init__(pos, scaler=scaler, rot=rot)
 
         self.speed = speed
-
-        PlayerEntity._instance = self
 
     @classmethod
     def health_max(cls):
@@ -57,12 +50,12 @@ class PlayerEntity(LivingEntity, ABC):
 
     @staticmethod
     def get_input_keys():
-        return c.K_UP, c.K_DOWN, c.K_LEFT, c.K_RIGHT, c.K_JUMP
+        return None, None, None, None
 
     def walk(self):
         dt = Dt.get_instance().get_dt()
 
-        K_UP, K_DOWN, K_LEFT, K_RIGHT, K_JUMP = self.get_input_keys()
+        K_UP, K_DOWN, K_LEFT, K_RIGHT = self.get_input_keys()
         keys = pg.key.get_pressed()
 
         dist = pg.Vector2(0, 0)
@@ -109,7 +102,3 @@ class PlayerEntity(LivingEntity, ABC):
                         break
                 else:
                     raise RuntimeError("No transition found with ID: " + str(trans.target_transition_id) + " in room: " + trans.target_room)
-
-    @classmethod
-    def get_instance(cls):
-        return cls._instance

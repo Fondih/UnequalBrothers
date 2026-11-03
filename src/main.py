@@ -33,9 +33,9 @@ while engine.running:
     engine.update_overlay()
 
     # update camera
-    player = Engine.get_instance().player
-    if player is not None:
-        Camera.get_instance().set_pos(player.pos)
+    player_big = Engine.get_instance().player_big
+    if player_big is not None:
+        Camera.get_instance().set_pos(player_big.pos)
     else:
         Camera.get_instance().set_pos(Coordinate(0, 0))
 

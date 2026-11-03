@@ -10870,7 +10870,20 @@
             ],
             "spawner_id": 0,
             "type": "PlayerSpawner"
+        },
+        {
+            "pos": [
+                1500.0,
+                1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "spawner_id": 1,
+            "type": "PlayerSpawner"
         }
-    ],
-    "layer_level_entity": []
+    ]
 }

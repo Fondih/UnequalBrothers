@@ -36,7 +36,7 @@ class RoomTransition(Terrain, ABC):
         return pg.Vector2(x // 2, y) * self.scaler
 
     def update(self):
-        from entity.concrete.player.player_entity import PlayerEntity
+        from player import PlayerEntity
 
         super().update()
 

@@ -26,11 +26,17 @@ KEY_EDITING_PAINT = 2
 KEY_EDITING_PICK = 1
 
 #player input keys
-K_UP = pg.K_w
-K_DOWN = pg.K_s
-K_LEFT = pg.K_a
-K_RIGHT = pg.K_d
-K_JUMP = pg.K_SPACE
+#player Big
+K_UP_B = pg.K_w
+K_DOWN_B = pg.K_s
+K_LEFT_B = pg.K_a
+K_RIGHT_B = pg.K_d
+
+#player small
+K_UP_S = pg.K_UP
+K_DOWN_S = pg.K_DOWN
+K_LEFT_S = pg.K_LEFT
+K_RIGHT_S = pg.K_RIGHT
 
 #entity
 PLAYER_SPEED = 400

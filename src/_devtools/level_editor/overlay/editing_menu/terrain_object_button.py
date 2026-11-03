@@ -5,7 +5,7 @@ import pygame as pg
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from datatype.coordinate_screen import CoordinateScreen
-from entity.concrete.player.player_entity import PlayerEntity
+from player.player_big import PlayerBig
 from event_handler.event_handler import Event
 from event_handler.events import Events
 from level.level import Level
@@ -125,5 +125,5 @@ class TerrainObjectButton(Button, ABC):
 
         if not EditorTerrainSelected.get_instance() is None:
             EditorTerrainSelected.get_instance().scrap()
-        terrain = EditorTerrainSelected(self.get_class(), PlayerEntity.get_instance().pos)
+        terrain = EditorTerrainSelected(self.get_class(), PlayerBig.get_instance().pos)
         Level.get_instance().add_level(terrain)

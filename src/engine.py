@@ -30,6 +30,8 @@ class Engine:
         self.run_mode = RunModes.DEFAULT
         self.editing_mode = False
         self.player = None
+        self.player_big = None
+        self.player_small = None
         self.registries = {}
 
         Engine._instance = self
@@ -65,15 +67,19 @@ class Engine:
         from _devtools.level_editor.overlay.gui.hacker_gui_menu import HackerGuiMenu
         from overlay.overlays.default_gui_menu import DefaultGuiMenu
         from datatype.coordinate import Coordinate
-        from entity.concrete.player.player_entity import PlayerEntity
         from level.level import Level
+        from player.player_big import PlayerBig
+        from player.player_small import PlayerSmall
+
 
         Level.get_instance().clear_level()
         self.run_mode = gamemode
 
-        # spawn Player
-        self.player = PlayerEntity(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
-        Level.get_instance().add_entity(self.player)
+        # spawn Players
+        self.player_big = PlayerBig(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
+        Level.get_instance().add_entity(self.player_big)
+        self.player_small = PlayerSmall(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
+        Level.get_instance().add_entity(self.player_small)
 
         self.active = True
         if not self.activated_once:
@@ -98,10 +104,12 @@ class Engine:
 
         # set player pos
         try:
-            self.player.change_pos(Level.get_instance().get_player_spawner(0)[0].get_player_spawn_pos())
+            self.player_big.change_pos(Level.get_instance().get_player_spawner(0)[0].get_player_spawn_pos())
+            self.player_small.change_pos(Level.get_instance().get_player_spawner(1)[0].get_player_spawn_pos())
         except IndexError:
             print(colored("Could not find player spawner", "red"))
-            self.player.change_pos(Coordinate(0, 0))
+            self.player_big.change_pos(Coordinate(0, 0))
+            self.player_small.change_pos(Coordinate(0, 0))
 
     def deactivate_game(self):
         self.active = False
@@ -236,9 +244,11 @@ class Engine:
                     if o is not None:
                         level.add_level(o)
                 for obj in layer_entity:
-                    o = Engine.get_instance().create_import_obj(obj)
-                    if o is not None:
-                        level.add_entity(o)
+                    print(obj)
+                    if obj.__name__ not in ("PlayerBig", "PlayerSmall"):
+                        o = Engine.get_instance().create_import_obj(obj)
+                        if o is not None:
+                            level.add_entity(o)
 
                 f.close()
         except FileNotFoundError:

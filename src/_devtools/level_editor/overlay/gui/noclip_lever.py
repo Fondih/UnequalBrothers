@@ -2,15 +2,16 @@ from abc import ABC
 
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
-from entity.concrete.player.player_entity import PlayerEntity
+from player.player_big import PlayerBig
 from overlay.lever import Lever
+from player.player_small import PlayerSmall
 
 
 class NoclipLever(Lever, ABC):
     def __init__(self, pos):
         super().__init__(pos)
 
-        self.state = 1 if PlayerEntity.get_instance().noclip else 0
+        self.state = 1 if PlayerBig.get_instance().noclip else 0
 
     @classmethod
     def create_name(cls):
@@ -26,4 +27,5 @@ class NoclipLever(Lever, ABC):
     def clicked(self):
         super().clicked()
 
-        PlayerEntity.get_instance().toggle_noclip()
+        PlayerBig.get_instance().toggle_noclip()
+        PlayerSmall.get_instance().toggle_noclip()

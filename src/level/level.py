@@ -45,9 +45,6 @@ class Level:
     def get_solid(self):
         return [obj for obj in self.get_layer_level_colliding() if obj.collider.is_solid]
 
-    def get_layer_level_entity(self):
-        return self.layer_level_entity
-
     def get_layer_entity(self):
         return self.layer_entity
 
@@ -80,8 +77,10 @@ class Level:
         self.layer_level = []
 
     def cleanse_entity_playerless(self):
-        from entity.concrete.player.player_entity import PlayerEntity
-        self.layer_entity = [PlayerEntity.get_instance()]
+        from player.player_big import PlayerBig
+        from player.player_small import PlayerSmall
+
+        self.layer_entity = [PlayerBig.get_instance(), PlayerSmall.get_instance()]
 
     def cleanse_background(self):
         self.layer_background = []
