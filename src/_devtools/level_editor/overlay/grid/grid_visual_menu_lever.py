@@ -25,11 +25,14 @@ class GridVisualMenuLever(Lever, ABC):
         return RectCollider(self.pos, self.get_texture_size_scaled(), Collider.Type.MOUSE, is_solid=False)
 
     def create_menu(self):
-        menu = GridVisualMenu(self.pos)
-        Level.get_instance().add_overlay(menu)
-        return menu
+        menu_left = GridVisualMenu(self.pos, "left")
+        menu_right = GridVisualMenu(self.pos, "right")
+        Level.get_instance().add_overlay(menu_left)
+        Level.get_instance().add_overlay(menu_right)
+        return [menu_left, menu_right]
 
     def clicked(self):
         super().clicked()
 
-        self.menu.toggle_shown()
+        for menu in self.menu:
+            menu.toggle_shown()

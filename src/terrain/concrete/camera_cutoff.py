@@ -4,7 +4,6 @@ import pygame as pg
 
 from _devtools.level_editor.overlay.editor_terrain_menu import menu_type_registry
 from _devtools.level_editor.overlay.editor_terrain_menu.menus import Menus
-from collider.collider import Collider
 from engine import Engine
 from level.camera import Camera
 from run_modes import RunModes
@@ -21,7 +20,7 @@ class CameraCutoff(Terrain, ABC):
 
     @classmethod
     def create_name(cls):
-        if Engine.get_instance().run_mode == RunModes.EDITOR:
+        if Engine.inst().run_mode == RunModes.EDITOR:
             return "camera_cutoff_shown"
         else:
             return "camera_cutoff"
@@ -31,11 +30,11 @@ class CameraCutoff(Terrain, ABC):
         return 50, 50
 
     def create_image(self):
-        if Engine.get_instance().run_mode == RunModes.EDITOR:
+        if Engine.inst().run_mode == RunModes.EDITOR:
             img = self.get_texture()
             sx, sy = self.size
-            sx *= self.scaler * Camera.get_instance().zoom
-            sy *= self.scaler * Camera.get_instance().zoom
+            sx *= self.scaler * Camera.zoom()
+            sy *= self.scaler * Camera.zoom()
 
             img = nine_slice(img, (sx, sy), (25, 25, 25, 25))
             if not self.rot == 0:

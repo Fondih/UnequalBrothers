@@ -14,8 +14,6 @@ class Level:
         self.layer_entity = []
         self.layer_overlay = []
 
-        self.s_layer_overlay = pg.Surface((c.WIDTH, c.HEIGHT), pg.SRCALPHA, 32).convert_alpha()
-
         Level._instance = self
 
     def get_obj_all(self):

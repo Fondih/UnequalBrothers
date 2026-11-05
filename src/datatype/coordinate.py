@@ -1,7 +1,5 @@
 import pygame as pg
-
 import src.config as c
-from level.camera import Camera
 
 
 class Coordinate:
@@ -57,11 +55,11 @@ class Coordinate:
     def tuple(self):
         return self.x, self.y
 
-    def convert_to_surface(self):
+    def convert_to_surface(self, cam):
         from src.datatype.coordinate_screen import CoordinateScreen
 
-        camera = Camera.get_instance()
-        x = self.x - camera.pos.x + c.WIDTH // 2
-        y = self.y - camera.pos.y + c.HEIGHT // 2
+        cs_x, cs_y = cam.size
+        x = self.x - cam.pos.x + cs_x // 2
+        y = self.y - cam.pos.y + cs_y // 2
 
         return CoordinateScreen(int(x), int(y))

@@ -7,6 +7,7 @@ from _devtools.level_editor.overlay.editing_menu.terrain_object_button import Te
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from datatype.coordinate_screen import CoordinateScreen
+from engine import Engine
 from entity import entity_registry
 from overlay.lever import Lever
 from overlay.text import Text
@@ -142,17 +143,17 @@ class TerrainFolderLever(Lever, ABC):
         for img in images:
             surface = pg.Surface((c.WIDTH // 2, int(s_y * 5 / 3)), pg.SRCALPHA, 32).convert_alpha()
             surface.blit(img, (0, 0))
-            text.render(surface)
+            text.render(surface, Engine.inst().cams["full"])
             fused.append(surface)
         return fused
 
 
-    def render(self, layer):
-        super().render(layer)
+    def render(self, layer, cam):
+        super().render(layer, cam)
 
         if self.state == 1:
             for content in self.get_content():
-                content.render(layer)
+                content.render(layer, cam)
 
     def switched_event(self):
         if self.state == 0:

@@ -6,13 +6,11 @@ from run_modes import RunModes
 WIDTH = 1280
 HEIGHT = 720
 CAPTION_DEFAULT = "Unequal Brothers"
-FPS_MAX = 120
+FPS_MAX = 1200
 DT_MAX = 0.5
 
 #game
 FONT_DEFAULT = "Comic Sans MS"
-ROOM_WIDTH = 2560
-ROOM_HEIGHT = 1440
 GRID_SIZE = 50
 ROOM_START = "room_start"
 GAMEMODE = RunModes.EDITOR

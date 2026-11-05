@@ -96,7 +96,7 @@ class Entity(LevelObject, ABC):
         self.collider.update_pos(pos + self.create_pos_offset(self.scaler))
 
     def update(self):
-        dt = Dt.get_instance().get_dt()
+        dt = Dt.inst().get_dt()
         self.move(self.vel)
 
         super().update()

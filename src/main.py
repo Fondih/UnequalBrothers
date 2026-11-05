@@ -3,8 +3,7 @@ import pygame as pg
 import config as c
 
 from datatype.coordinate import Coordinate
-from engine import Engine
-from level.camera import Camera
+from engine import Engine, CamMode
 from level.dt import Dt
 from level.level import Level
 
@@ -12,8 +11,6 @@ from level.level import Level
 engine = Engine()
 engine.init()
 level = Level.get_instance()
-
-layer_overlay = level.s_layer_overlay
 
 while engine.running:
     for event in pg.event.get():
@@ -25,23 +22,35 @@ while engine.running:
         engine.running = False
 
     #deltatime
-    Dt.get_instance().tick()
+    Dt.inst().tick()
 
     #update
+    engine.update_controllers()
     engine.update_entity()
     engine.update_terrain()
     engine.update_overlay()
 
     # update camera
-    player_big = Engine.get_instance().player_big
-    if player_big is not None:
-        Camera.get_instance().set_pos(player_big.pos)
-    else:
-        Camera.get_instance().set_pos(Coordinate(0, 0))
+    try:
+        player_big = Engine.inst().players["big"]
+        player_small = Engine.inst().players["small"]
+    except KeyError:
+        player_big = None
+        player_small = None
+    if Engine.inst().cam_mode == CamMode.SPLIT and player_big is not None and player_small is not None:
+        Engine.inst().cams["big"].set_pos(player_big.pos)
+        Engine.inst().cams["small"].set_pos(player_small.pos)
 
     #draw
-    engine.draw()
-    engine.render_overlay()
+    if Engine.inst().cam_mode == CamMode.FULL:
+        engine.draw("full")
+    elif Engine.inst().cam_mode == CamMode.SPLIT:
+        engine.draw("left")
+        engine.draw("right")
+
+    engine.render_overlay_sided()
+    engine.render_sided()
+    engine.render_overlay_full()
 
     pg.display.flip()
 

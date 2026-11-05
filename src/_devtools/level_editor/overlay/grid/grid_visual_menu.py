@@ -4,13 +4,16 @@ import pygame as pg
 
 import src.config as c
 from datatype.coordinate import Coordinate
+from engine import Engine
 from level.camera import Camera
 from overlay.menu import Menu
+from overlay.sided_screen_object import SidedScreenObject
 
 
-class GridVisualMenu(Menu, ABC):
-    def __init__(self, pos):
+class GridVisualMenu(Menu, SidedScreenObject, ABC):
+    def __init__(self, pos, side):
         super().__init__(pos)
+        self.side = side
 
     @classmethod
     def create_name(cls):
@@ -42,16 +45,23 @@ class GridVisualMenu(Menu, ABC):
 
         return surface
 
-
-    def render(self, layer):
-        if self.shown:
-            x, y = (Camera.get_instance().pos + pg.Vector2(-c.WIDTH // 2, -c.HEIGHT // 2)).tuple()
-            x -= x % c.GRID_SIZE
-            y -= y % c.GRID_SIZE
-
-            pos = Coordinate(x, y).convert_to_surface().tuple()
-
-            layer.blit(self.image, pos)
+    def render(self, surface, _):
+        if not self.shown:
+            return
+        cam = Engine.inst().cams[{"left": "big", "right": "small"}.get(self.side, "full")]
+        w, h = surface.get_size()
+        z = Camera.zoom()
+        step = c.GRID_SIZE * z
+        ox = (-(cam.pos.x * z) + w / 2) % step
+        oy = (-(cam.pos.y * z) + h / 2) % step
+        x = ox
+        while x < w:
+            pg.draw.line(surface, self.grid_color(), (x, 0), (x, h), self.grid_line_width())
+            x += step
+        y = oy
+        while y < h:
+            pg.draw.line(surface, self.grid_color(), (0, y), (w, y), self.grid_line_width())
+            y += step
 
     @classmethod
     def create_texture_size(cls):

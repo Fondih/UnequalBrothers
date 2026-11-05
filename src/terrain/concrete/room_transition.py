@@ -40,5 +40,5 @@ class RoomTransition(Terrain, ABC):
 
         super().update()
 
-        if self.on_cd and not self.collider.collide(PlayerEntity.get_instance().collider):
+        if self.on_cd and not self.collider.collide(PlayerEntity.inst().collider):
             self.set_cd(False)

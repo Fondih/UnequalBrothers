@@ -37,7 +37,7 @@ class Text(ScreenObject, ABC):
     def create_texture(self, colorkey_custom="black"):
         return None
 
-    def render(self, layer):
+    def render(self, layer, cam):
         layer.blit(self.image, self.pos.tuple())
 
     def create_image(self):

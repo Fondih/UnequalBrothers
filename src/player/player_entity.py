@@ -19,8 +19,8 @@ from run_modes import RunModes
 @register(["player"])
 class PlayerEntity(LivingEntity, ABC):
     def __init__(self, pos, scaler=1, rot=0, speed=c.PLAYER_SPEED):
-        self.noclip = True if (Engine.get_instance().run_mode == RunModes.EDITOR or
-                               Engine.get_instance().run_mode == RunModes.HACKS) else False
+        self.noclip = True if (Engine.inst().run_mode == RunModes.EDITOR or
+                               Engine.inst().run_mode == RunModes.HACKS) else False
 
         super().__init__(pos, scaler=scaler, rot=rot)
 
@@ -53,7 +53,7 @@ class PlayerEntity(LivingEntity, ABC):
         return None, None, None, None
 
     def walk(self):
-        dt = Dt.get_instance().get_dt()
+        dt = Dt.inst().get_dt()
 
         K_UP, K_DOWN, K_LEFT, K_RIGHT = self.get_input_keys()
         keys = pg.key.get_pressed()

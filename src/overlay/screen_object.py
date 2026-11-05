@@ -79,5 +79,5 @@ class ScreenObject(ABC):
         pass
 
     @abstractmethod
-    def render(self, layer):
+    def render(self, layer, cam):
         pass

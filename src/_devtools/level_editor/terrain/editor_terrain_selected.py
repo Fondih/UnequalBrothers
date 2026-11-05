@@ -73,7 +73,7 @@ class EditorTerrainSelected(Terrain, ABC):
         return cls._instance.type_obj.create_texture_size()
 
     def create_collider(self):
-        return RectCollider((self.pos + self.create_pos_offset(self.scaler)).convert_to_surface(), self.get_texture_size_scaled(self.scaler), Collider.Type.MOUSE, is_solid=False, buttons_mouse=[c.KEY_EDITING_DRAG, c.KEY_EDITING_PAINT])
+        return RectCollider((self.pos + self.create_pos_offset(self.scaler)).convert_to_surface(Engine.inst().cams["big"]), self.get_texture_size_scaled(self.scaler), Collider.Type.MOUSE, is_solid=False, buttons_mouse=[c.KEY_EDITING_DRAG, c.KEY_EDITING_PAINT])
 
     def create_menu(self):
         from _devtools.level_editor.overlay.editor_terrain_menu.menus import Menus
@@ -84,13 +84,13 @@ class EditorTerrainSelected(Terrain, ABC):
             menu_type = Menus.DEFAULT.value
 
         x, y = self.get_texture_size_scaled(self.scaler)
-        menu = menu_type((self.pos + pg.Vector2(x / 2, 0)).convert_to_surface())
+        menu = menu_type((self.pos + pg.Vector2(x / 2, 0)).convert_to_surface(Engine.inst().cams["big"]))
         Level.get_instance().add_overlay(menu)
         return menu
 
     def change_pos(self, pos):
         self.pos = pos
-        self.collider.update_pos((pos + self.create_pos_offset(self.scaler)).convert_to_surface())
+        self.collider.update_pos((pos + self.create_pos_offset(self.scaler)).convert_to_surface(Engine.inst().cams["big"]))
 
     @staticmethod
     @Event.listener(Events.PLAYER_MOVE, Event.When.AFTER)
@@ -112,7 +112,7 @@ class EditorTerrainSelected(Terrain, ABC):
             return
 
         m_x, m_y = pg.mouse.get_pos()
-        m_pos = CoordinateScreen(m_x, m_y).convert_to_world()
+        m_pos = CoordinateScreen(m_x, m_y).convert_to_world(Engine.inst().cams["big"])
 
         if self.resize:
             grid_x, grid_y = (c.GRID_SIZE, c.GRID_SIZE)
@@ -144,7 +144,7 @@ class EditorTerrainSelected(Terrain, ABC):
             s_x, s_y = self.get_texture_size_scaled(self.scaler)
             o_vec = pg.Vector2(s_x // 2, 0)
             self.menu.change_pos((self.pos + o_vec + self.menu.create_offset() + self.create_pos_offset(
-                self.scaler)).convert_to_surface())
+                self.scaler)).convert_to_surface(Engine.inst().cams["big"]))
 
         else:
             if pg.mouse.get_pressed()[c.KEY_EDITING_PAINT]:
@@ -181,7 +181,7 @@ class EditorTerrainSelected(Terrain, ABC):
 
             s_x, s_y = self.get_texture_size_scaled(self.scaler)
             o_vec = pg.Vector2(s_x // 2, 0)
-            self.menu.change_pos((self.pos + o_vec + self.menu.create_offset() + self.create_pos_offset(self.scaler)).convert_to_surface())
+            self.menu.change_pos((self.pos + o_vec + self.menu.create_offset() + self.create_pos_offset(self.scaler)).convert_to_surface(Engine.inst().cams["big"]))
 
             if pg.mouse.get_pressed()[c.KEY_EDITING_PAINT]:
                 if (self.paint_commit_last is None or
@@ -270,7 +270,7 @@ class EditorTerrainSelected(Terrain, ABC):
             type_hint = param.annotation if param.annotation is not inspect.Parameter.empty else str
             type_name = getattr(type_hint, '__name__', 'value')
 
-            with Dt.get_instance().forcepause():
+            with Dt.inst().forcepause():
                 raw = input(f"'{param.name}' requires a value ({type_name}): ")
 
             try:
@@ -332,8 +332,8 @@ class EditorTerrainSelected(Terrain, ABC):
         if self.type_obj.__name__ == "CameraCutoff":
             img = self.get_texture()
             sx, sy = self.size
-            sx *= self.scaler * Camera.get_instance().zoom
-            sy *= self.scaler * Camera.get_instance().zoom
+            sx *= self.scaler * Camera.zoom()
+            sy *= self.scaler * Camera.zoom()
 
             img = nine_slice(img, (sx, sy), (25, 25, 25, 25))
             if not self.rot == 0:
@@ -343,7 +343,7 @@ class EditorTerrainSelected(Terrain, ABC):
         else:
             img = super().create_image()
 
-        pg.draw.rect(img, "yellow", ((0, 0), img.get_size()), 3 * Camera.get_instance().zoom)
+        pg.draw.rect(img, "yellow", ((0, 0), img.get_size()), 3 * Camera.zoom())
 
         self.image = img
         return img

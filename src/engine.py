@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import pkgutil
+from enum import Enum, auto
 
 import config as c
 import pygame as pg
@@ -11,31 +12,31 @@ import terrain.concrete as tc
 from entity import entity_registry
 from event_handler.event_handler import Event
 from event_handler.events import Events
+from overlay.sided_screen_object import SidedScreenObject
 from run_modes import RunModes
 from terrain import terrain_registry
+from utils.singleton import Singleton
 
+class CamMode(Enum):
+    FULL = auto()
+    SPLIT = auto()
 
-class Engine:
-    _instance = None
-
+class Engine(metaclass=Singleton):
     def __init__(self):
-        if Engine._instance is not None:
-            raise RuntimeError("Engine already exists - use Engine.get_instance() instead")
-
-        self.screen = None
+        self.screens = {}
         self.clock = None
         self.running = False
-        self.active = False
         self.activated_once = False
         self.run_mode = RunModes.DEFAULT
-        self.editing_mode = False
-        self.player = None
-        self.player_big = None
-        self.player_small = None
+        self.controllers = []
+        self.players = {}
+        self.cams = {}
+        self.cam_mode = CamMode.FULL
         self.registries = {}
 
         Engine._instance = self
 
+    # noinspection PyShadowingNames
     def init(self):
         import os
         import pygame as pg
@@ -50,8 +51,9 @@ class Engine:
         pg.init()
         os.system('color')
 
-        self.screen = pg.display.set_mode((c.WIDTH, c.HEIGHT))
-        Camera(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
+        self.screens["full"] = pg.display.set_mode((c.WIDTH, c.HEIGHT))
+        self.screens["full"].fill((0, 0, 0))
+        self.cams["full"] = Camera(Coordinate(c.WIDTH // 2, c.HEIGHT // 2), (c.WIDTH, c.HEIGHT))
         Level()
         Dt()
         self.clock = pg.time.Clock()
@@ -70,21 +72,30 @@ class Engine:
         from level.level import Level
         from player.player_big import PlayerBig
         from player.player_small import PlayerSmall
+        from level.camera import Camera
 
 
         Level.get_instance().clear_level()
         self.run_mode = gamemode
 
-        # spawn Players
-        self.player_big = PlayerBig(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
-        Level.get_instance().add_entity(self.player_big)
-        self.player_small = PlayerSmall(Coordinate(c.ROOM_WIDTH // 2, c.HEIGHT // 2))
-        Level.get_instance().add_entity(self.player_small)
+        # create screens
+        self.screens["left"] = pg.Surface((c.WIDTH / 2, c.HEIGHT)).convert()
+        self.screens["right"] = pg.Surface((c.WIDTH / 2, c.HEIGHT)).convert()
 
-        self.active = True
+        # spawn Players
+        self.players["big"] = PlayerBig(Coordinate(0, 0))
+        Level.get_instance().add_entity(self.players["big"])
+        self.players["small"] = PlayerSmall(Coordinate(0, 0))
+        Level.get_instance().add_entity(self.players["small"])
+
+        # spawn Cams
+        self.cams["big"] = Camera(self.players["big"].pos, (c.WIDTH / 2, c.HEIGHT))
+        self.cams["small"] = Camera(self.players["small"].pos, (c.WIDTH / 2, c.HEIGHT))
+        self.cam_mode = CamMode.SPLIT
+
         if not self.activated_once:
             if self.run_mode == RunModes.EDITOR:
-                TerrainPickController()
+                self.controllers.append(TerrainPickController())
 
             # import all gameobjects to add to registry
             self.import_all_submodules(tc)
@@ -104,15 +115,15 @@ class Engine:
 
         # set player pos
         try:
-            self.player_big.change_pos(Level.get_instance().get_player_spawner(0)[0].get_player_spawn_pos())
-            self.player_small.change_pos(Level.get_instance().get_player_spawner(1)[0].get_player_spawn_pos())
+            self.players["big"].change_pos(Level.get_instance().get_player_spawner(0)[0].get_player_spawn_pos())
+            self.players["small"].change_pos(Level.get_instance().get_player_spawner(1)[0].get_player_spawn_pos())
         except IndexError:
             print(colored("Could not find player spawner", "red"))
-            self.player_big.change_pos(Coordinate(0, 0))
-            self.player_small.change_pos(Coordinate(0, 0))
+            self.players["big"].change_pos(Coordinate(0, 0))
+            self.players["small"].change_pos(Coordinate(0, 0))
 
     def deactivate_game(self):
-        self.active = False
+        pass
 
     @staticmethod
     def import_all_submodules(package):
@@ -121,6 +132,11 @@ class Engine:
 
         for _, name, _ in pkgutil.walk_packages(package.__path__, package.__name__ + "."):
             importlib.import_module(name)
+
+    @staticmethod
+    def update_controllers():
+        for cont in Engine.inst().controllers:
+            cont.update()
 
     @staticmethod
     def update_entity():
@@ -150,32 +166,67 @@ class Engine:
             obj.update()
 
     @staticmethod
-    def render_overlay():
+    def render_overlay_full():
         from level.level import Level
 
         level = Level.get_instance()
+        full = [obj for obj in level.get_layer_overlay() if not isinstance(obj, SidedScreenObject)]
+        for obj in full:
+            obj.render(Engine.inst().screens["full"], Engine.inst().cams["full"])
 
-        level.s_layer_overlay.fill((0, 0, 0, 0))
-        for obj in level.get_layer_overlay():
-            obj.render(level.s_layer_overlay)
-
-    def draw(self):
+    @staticmethod
+    def render_overlay_sided():
         from level.level import Level
 
         level = Level.get_instance()
-        self.screen.fill("white")
+        sided = [obj for obj in level.get_layer_overlay() if isinstance(obj, SidedScreenObject)]
+
+        for obj in sided:
+            match obj.side:
+                case "left":
+                    side = "left"
+                    cam = "big"
+                case "right":
+                    side = "right"
+                    cam = "big"
+                case _:
+                    side = "none found"
+                    cam = "full"
+            obj.render(Engine.inst().screens[side], Engine.inst().cams[cam])
+
+    @staticmethod
+    def draw(type):
+        from level.level import Level
+        from level.camera import Camera
+
+        level = Level.get_instance()
+        screen = Engine.inst().screens[type]
+        screen.fill("white")
+        zoom = Camera.zoom()
+        match type:
+            case "left":
+                cam_name = "big"
+            case "right":
+                cam_name = "small"
+            case _:
+                cam_name = "full"
+        cam = Engine.inst().cams[cam_name]
 
         for layer in (level.get_layer_background(),
                       level.get_layer_level(),
                       level.get_layer_entity()):
             for obj in layer:
-                obj.render(self.screen)
+                obj.render(screen, cam, zoom)
 
-        self.screen.blit(level.s_layer_overlay, (0, 0))
+    def render_sided(self):
+        screen = self.screens["full"]
+        if self.cam_mode == CamMode.SPLIT:
+            screen.blit(self.screens["left"], (0, 0))
+            screen.blit(self.screens["right"], (c.WIDTH / 2, 0))
 
     @staticmethod
     @Event.listener(Events.ZOOM_CHANGE, Event.When.AFTER)
-    def zoom_changed(cam, zoom):
+    def zoom_changed(_, __):
         from level.level import Level
         level = Level.get_instance()
         for layer in (level.layer_background, level.layer_level,
@@ -236,17 +287,17 @@ class Engine:
                 level.cleanse_entity_playerless()
 
                 for obj in layer_bg:
-                    o = Engine.get_instance().create_import_obj(obj)
+                    o = Engine.inst().create_import_obj(obj)
                     if o is not None:
                         level.add_background(o)
                 for obj in layer_level:
-                    o = Engine.get_instance().create_import_obj(obj)
+                    o = Engine.inst().create_import_obj(obj)
                     if o is not None:
                         level.add_level(o)
                 for obj in layer_entity:
                     print(obj)
                     if obj.__name__ not in ("PlayerBig", "PlayerSmall"):
-                        o = Engine.get_instance().create_import_obj(obj)
+                        o = Engine.inst().create_import_obj(obj)
                         if o is not None:
                             level.add_entity(o)
 
@@ -277,18 +328,6 @@ class Engine:
 
     @staticmethod
     def load_class(name):
-        reg = Engine.get_instance().registries
+        reg = Engine.inst().registries
         cs, _ = reg[name]
         return cs
-
-    @staticmethod
-    def create_obj_files_root():
-        return "src/level_objects_concrete"
-
-    @staticmethod
-    def is_file_py(name):
-        return name[-3:] == ".py"
-
-    @classmethod
-    def get_instance(cls):
-        return cls._instance

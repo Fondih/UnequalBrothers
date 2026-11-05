@@ -79,7 +79,7 @@ class Lever(Button, ABC):
 
         return images
 
-    def render(self, layer):
+    def render(self, layer, cam):
         layer.blit(self.image[self.state], self.pos.tuple())
 
     def clicked(self):

@@ -29,13 +29,13 @@ class Menu(ScreenObject, ABC):
     def create_collider(self):
         return Collider(self.pos, Collider.Type.MOUSE, is_solid=False)  # to avoid potential bugs
 
-    def render(self, layer):
+    def render(self, layer, cam):
         if self.shown:
             if self.image is not None:
                 layer.blit(self.image, self.pos.tuple())
 
             for obj in self.content:
-                obj.render(layer)
+                obj.render(layer, cam)
 
     def toggled_event(self):
         pass

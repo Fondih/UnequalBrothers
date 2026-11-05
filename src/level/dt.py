@@ -2,15 +2,11 @@ import time
 from contextlib import contextmanager
 
 import config as c
+from utils.singleton import Singleton
 
 
-class Dt:
-    _instance = None
-
+class Dt(metaclass=Singleton):
     def __init__(self):
-        if Dt._instance is not None:
-            raise RuntimeError("Dt already exists - use Dt.get_instance() instead")
-
         self.dt = 0
         self.prev_time = 0
         Dt._instance = self
@@ -34,7 +30,3 @@ class Dt:
             yield
         finally:
             self.reset_dt()
-
-    @classmethod
-    def get_instance(cls):
-        return cls._instance

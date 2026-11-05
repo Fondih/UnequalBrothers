@@ -24,4 +24,4 @@ class StartGameButton(Button, ABC):
         return RectCollider(self.pos, self.get_texture_size_scaled(), Collider.Type.MOUSE, is_solid=False)
 
     def clicked(self):
-        Engine.get_instance().activate_game(RunModes.DEFAULT, c.ROOM_START)
+        Engine.inst().activate_game(RunModes.DEFAULT, c.ROOM_START)

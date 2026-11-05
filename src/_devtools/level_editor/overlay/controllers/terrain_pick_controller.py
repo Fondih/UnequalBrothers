@@ -1,52 +1,27 @@
 import pygame as pg
 import config as c
 from _devtools.level_editor.terrain.editor_terrain_selected import EditorTerrainSelected
+from controller.controller import Controller
 from datatype.coordinate_screen import CoordinateScreen
 from engine import Engine
 from event_handler.events import Events
 from level.level import Level
-from overlay.menu import Menu
 from event_handler.event_handler import Event
+from utils.singleton import Singleton
 
 
-class TerrainPickController(Menu):
-    _instance = None
-
+class TerrainPickController(Controller, metaclass=Singleton):
     def __init__(self):
-        super().__init__(CoordinateScreen(0, 0))
+        super().__init__()
         self.prev_pressed = False
         self.collided = []
         self.terrain_prev = None
 
-        Level.get_instance().add_overlay(self)
-        TerrainPickController._instance = self
-
-    @classmethod
-    def create_name(cls):
-        return "terrain_pick_controller"
-
-    def create_image(self):
-        pass
-
-    def create_texture(self, colorkey_custom="black"):
-        pass
-
-    def create_content(self):
-        return []
-
-    @classmethod
-    def create_texture_size(cls):
-        return 0, 0
-
-    @staticmethod
-    def get_instance():
-        return TerrainPickController._instance
-
     @staticmethod
     @Event.listener(Events.EDITOR_TERRAIN_CREATED, Event.When.BEFORE)
     def revert_terrain(_):
-        if TerrainPickController.get_instance().terrain_prev is not None:
-            layer, obj = TerrainPickController.get_instance().terrain_prev
+        if TerrainPickController.inst().terrain_prev is not None:
+            layer, obj = TerrainPickController.inst().terrain_prev
             layer.append(obj)
 
     def update(self):
@@ -88,7 +63,7 @@ class TerrainPickController(Menu):
                     and not type(o).__name__ == "PlayerEntity"
                     and (Engine.key_mod_down(c.KEY_SUBTLE_EDITING) or not type(o).__name__ == "CameraCutoff")]
         for obj in terrains:
-            if obj.collider.collide(CoordinateScreen(pg.mouse.get_pos()[0], pg.mouse.get_pos()[1]).convert_to_world().tuple(),
+            if obj.collider.collide(CoordinateScreen(pg.mouse.get_pos()[0], pg.mouse.get_pos()[1]).convert_to_world(Engine.inst().cams["big"]).tuple(),
                                     True, [c.KEY_EDITING_PICK]):
                 collided.append(obj)
         self.collided = [o for o in self.collided if any(o is x for x in collided)]

@@ -94,23 +94,24 @@ class LevelObject(ABC):
 
             return pg.image.load("assets/textures/missing_texture.png").convert()
 
-    def render(self, screen):
-        if self.image is not None:
-            cam = Camera.get_instance()
-            off = self.create_pos_offset(self.scaler)
-            x = (self.pos.x + off.x - cam.pos.x) * cam.zoom + c.WIDTH / 2
-            y = (self.pos.y + off.y - cam.pos.y) * cam.zoom + c.HEIGHT / 2
-
-            rect = self.image.get_rect(topleft=(x, y))
-            if rect.colliderect(screen.get_rect()):
-                screen.blit(self.image, rect)
+    def render(self, screen, cam, zoom):
+        img = self.image
+        if img is None:
+            return
+        cs_x, cs_y = cam.size
+        off = self.create_pos_offset(self.scaler)
+        x = (self.pos.x + off.x - cam.pos.x) * zoom + cs_x / 2
+        y = (self.pos.y + off.y - cam.pos.y) * zoom + cs_y / 2
+        if x > cs_x or y > cs_y or x + img.get_width() < 0 or y + img.get_height() < 0:
+            return
+        screen.blit(img, (x, y))
 
     def create_image(self):
         img = self.get_texture()
 
         sx, sy = self.size
-        sx *= self.scaler * Camera.get_instance().zoom
-        sy *= self.scaler * Camera.get_instance().zoom
+        sx *= self.scaler * Camera.zoom()
+        sy *= self.scaler * Camera.zoom()
 
         img = pg.transform.scale(img, (sx, sy))
         if not self.rot == 0:

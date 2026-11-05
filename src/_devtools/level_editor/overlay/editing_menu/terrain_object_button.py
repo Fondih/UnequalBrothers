@@ -5,6 +5,7 @@ import pygame as pg
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from datatype.coordinate_screen import CoordinateScreen
+from engine import Engine
 from player.player_big import PlayerBig
 from event_handler.event_handler import Event
 from event_handler.events import Events
@@ -95,7 +96,7 @@ class TerrainObjectButton(Button, ABC):
 
             surface = pg.Surface((x * 3, y + height_text * 5 / 3), pg.SRCALPHA, 32).convert_alpha()
             surface.blit(img, (0, 0))
-            text.render(surface)
+            text.render(surface, Engine.inst().cams["full"])
 
             return surface
         else:

@@ -22,7 +22,7 @@ class Button(ScreenObject, ABC):
     def create_collider(self):
         return Collider(self.pos, Collider.Type.MOUSE, is_solid=False)
 
-    def render(self, layer):
+    def render(self, layer, cam):
         layer.blit(self.image, self.pos.tuple())
 
     @staticmethod

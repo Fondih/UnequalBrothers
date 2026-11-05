@@ -18,7 +18,7 @@ class PlayerSpawner(Terrain, ABC):
 
     @classmethod
     def create_name(cls):
-        if Engine.get_instance().run_mode == RunModes.EDITOR:
+        if Engine.inst().run_mode == RunModes.EDITOR:
             return "player_spawner_shown"
         else:
             return "player_spawner"
