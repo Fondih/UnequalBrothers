@@ -4,6 +4,8 @@ import pygame as pg
 
 from _devtools.level_editor.overlay.editor_terrain_menu.menu_type_registry import spec_menu
 from _devtools.level_editor.overlay.editor_terrain_menu.menus import Menus
+from engine import Engine
+from level.level import Level
 from terrain.terrain import Terrain
 from terrain.terrain_registry import register
 
@@ -31,14 +33,38 @@ class RoomTransition(Terrain, ABC):
         self.on_cd = cd
 
     def player_spawn_offset(self):
-        x, y = self.create_texture_size()
+        x, y = self.size
 
-        return pg.Vector2(x // 2, y) * self.scaler
+        return pg.Vector2(x // 2, y // 2) * self.scaler
 
     def update(self):
-        from player import PlayerEntity
+        from player.player_big import PlayerBig
+        from player.player_small import PlayerSmall
 
         super().update()
 
-        if self.on_cd and not self.collider.collide(PlayerEntity.inst().collider):
+        # check for player collision
+        if (not self.on_cd and self.collider.collide(PlayerSmall.inst().collider)
+                and self.collider.collide(PlayerBig.inst().collider)):
+            print("transition to room:", self.target_room, "with transition:", self.target_transition_id)
+
+            try:
+                Engine.import_room(self.target_room)
+            except FileNotFoundError:
+                raise FileNotFoundError("No such room: " + self.target_room)
+
+            for trans_target in Level.inst().get_room_transitions():
+                if trans_target.transition_id == self.target_transition_id:
+                    trans_target.set_cd(True)
+
+                    PlayerBig.inst().change_pos(trans_target.pos + trans_target.player_spawn_offset())
+                    PlayerSmall.inst().change_pos(trans_target.pos + trans_target.player_spawn_offset())
+                    break
+            else:
+                raise RuntimeError(
+                    "No transition found with ID: " + str(self.target_transition_id) + " in room: " + self.target_room)
+
+        # check for cd reset
+        if (self.on_cd and not self.collider.collide(PlayerSmall.inst().collider)
+                and not self.collider.collide(PlayerBig.inst().collider)):
             self.set_cd(False)

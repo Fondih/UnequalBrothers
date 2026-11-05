@@ -60,7 +60,7 @@ class Engine(metaclass=Singleton):
         pg.display.set_caption(c.CAPTION_DEFAULT)
         self.running = True
 
-        Level.get_instance().add_overlay(TitlescreenMenu(CoordinateScreen(0, 0)))
+        Level.inst().add_overlay(TitlescreenMenu(CoordinateScreen(0, 0)))
 
     def activate_game(self, gamemode, room):
         from _devtools.level_editor.overlay.controllers.terrain_pick_controller import TerrainPickController
@@ -75,7 +75,7 @@ class Engine(metaclass=Singleton):
         from level.camera import Camera
 
 
-        Level.get_instance().clear_level()
+        Level.inst().clear_level()
         self.run_mode = gamemode
 
         # create screens
@@ -84,9 +84,9 @@ class Engine(metaclass=Singleton):
 
         # spawn Players
         self.players["big"] = PlayerBig(Coordinate(0, 0))
-        Level.get_instance().add_entity(self.players["big"])
+        Level.inst().add_entity(self.players["big"])
         self.players["small"] = PlayerSmall(Coordinate(0, 0))
-        Level.get_instance().add_entity(self.players["small"])
+        Level.inst().add_entity(self.players["small"])
 
         # spawn Cams
         self.cams["big"] = Camera(self.players["big"].pos, (c.WIDTH / 2, c.HEIGHT))
@@ -104,19 +104,19 @@ class Engine(metaclass=Singleton):
 
         # Set Gui based on Gamemode
         if self.run_mode == RunModes.EDITOR:
-            Level.get_instance().add_overlay(EditingGuiMenu(CoordinateScreen(0, 0)))
+            Level.inst().add_overlay(EditingGuiMenu(CoordinateScreen(0, 0)))
         if self.run_mode == RunModes.HACKS:
-            Level.get_instance().add_overlay(HackerGuiMenu(CoordinateScreen(0, 0)))
+            Level.inst().add_overlay(HackerGuiMenu(CoordinateScreen(0, 0)))
         if self.run_mode == RunModes.DEFAULT:
-            Level.get_instance().add_overlay(DefaultGuiMenu(CoordinateScreen(0, 0)))
+            Level.inst().add_overlay(DefaultGuiMenu(CoordinateScreen(0, 0)))
 
         # load Room
         Engine.import_room(room)
 
         # set player pos
         try:
-            self.players["big"].change_pos(Level.get_instance().get_player_spawner(0)[0].get_player_spawn_pos())
-            self.players["small"].change_pos(Level.get_instance().get_player_spawner(1)[0].get_player_spawn_pos())
+            self.players["big"].change_pos(Level.inst().get_player_spawner(0)[0].get_player_spawn_pos())
+            self.players["small"].change_pos(Level.inst().get_player_spawner(1)[0].get_player_spawn_pos())
         except IndexError:
             print(colored("Could not find player spawner", "red"))
             self.players["big"].change_pos(Coordinate(0, 0))
@@ -142,16 +142,14 @@ class Engine(metaclass=Singleton):
     def update_entity():
         from level.level import Level
 
-        level = Level.get_instance()
-
-        for entity in level.layer_entity:
+        for entity in Level.inst().layer_entity:
             entity.update()
 
     @staticmethod
     def update_terrain():
         from level.level import Level
 
-        level = Level.get_instance()
+        level = Level.inst()
 
         for terrain in level.layer_level:
             terrain.update()
@@ -160,7 +158,7 @@ class Engine(metaclass=Singleton):
     def update_overlay():
         from level.level import Level
 
-        level = Level.get_instance()
+        level = Level.inst()
 
         for obj in level.layer_overlay:
             obj.update()
@@ -169,7 +167,7 @@ class Engine(metaclass=Singleton):
     def render_overlay_full():
         from level.level import Level
 
-        level = Level.get_instance()
+        level = Level.inst()
         full = [obj for obj in level.get_layer_overlay() if not isinstance(obj, SidedScreenObject)]
         for obj in full:
             obj.render(Engine.inst().screens["full"], Engine.inst().cams["full"])
@@ -178,7 +176,7 @@ class Engine(metaclass=Singleton):
     def render_overlay_sided():
         from level.level import Level
 
-        level = Level.get_instance()
+        level = Level.inst()
         sided = [obj for obj in level.get_layer_overlay() if isinstance(obj, SidedScreenObject)]
 
         for obj in sided:
@@ -199,7 +197,7 @@ class Engine(metaclass=Singleton):
         from level.level import Level
         from level.camera import Camera
 
-        level = Level.get_instance()
+        level = Level.inst()
         screen = Engine.inst().screens[type]
         screen.fill("white")
         zoom = Camera.zoom()
@@ -228,7 +226,7 @@ class Engine(metaclass=Singleton):
     @Event.listener(Events.ZOOM_CHANGE, Event.When.AFTER)
     def zoom_changed(_, __):
         from level.level import Level
-        level = Level.get_instance()
+        level = Level.inst()
         for layer in (level.layer_background, level.layer_level,
                       level.layer_entity):
             for obj in layer:
@@ -239,10 +237,6 @@ class Engine(metaclass=Singleton):
         if pg.key.get_mods() & key:
             return True
         return False
-
-    @staticmethod
-    def create_rooms_namespace():
-        return ""
 
     @staticmethod
     def export_room():
@@ -258,9 +252,9 @@ class Engine(metaclass=Singleton):
             id_file += 1
 
         with open(path_file + name_file + '_' + str(id_file) + '.json', 'w', encoding='utf-8') as f:
-            data = json.dumps({'layer_background': Level.get_instance().get_layer_background(),
-                               'layer_level': Level.get_instance().get_layer_level(),
-                               'layer_entity': Level.get_instance().get_layer_entity_playerless()},
+            data = json.dumps({'layer_background': Level.inst().get_layer_background(),
+                               'layer_level': Level.inst().get_layer_level(),
+                               'layer_entity': Level.inst().get_layer_entity_playerless()},
                               sort_keys=True, indent=4, cls=EncodeLevelObject)
             print(f"Exported room as {name_file}_{str(id_file)}.json")
             f.write(data)
@@ -268,15 +262,13 @@ class Engine(metaclass=Singleton):
 
     @staticmethod
     @Event.trigger(Events.ROOM_LOADED)
-    def import_room(name, namespace=None):
+    def import_room(name):
         from level.level import Level
 
-        level = Level.get_instance()
+        level = Level.inst()
 
-        if namespace is None:
-            namespace = Engine.create_rooms_namespace()
         try:
-            with open("assets/rooms/" + namespace + name + '.json', 'r', encoding='utf-8') as f:
+            with open("assets/rooms/" + name + '.json', 'r', encoding='utf-8') as f:
                 data = json.load(f)
                 layer_bg = data["layer_background"]
                 layer_level = data["layer_level"]
@@ -296,14 +288,14 @@ class Engine(metaclass=Singleton):
                         level.add_level(o)
                 for obj in layer_entity:
                     print(obj)
-                    if obj.__name__ not in ("PlayerBig", "PlayerSmall"):
+                    if obj["type"] not in ("PlayerBig", "PlayerSmall"):
                         o = Engine.inst().create_import_obj(obj)
                         if o is not None:
                             level.add_entity(o)
 
                 f.close()
         except FileNotFoundError:
-            print(colored(f"Could not find room file: assets/rooms/{namespace}{name}.json"))
+            print(colored(f"Could not find room file: assets/rooms/{name}.json"))
 
     @staticmethod
     def create_import_obj(obj):

@@ -1,0 +1,2246 @@
+{
+    "layer_background": [],
+    "layer_entity": [
+        {
+            "pos": [
+                -99.42054033892828,
+                -884.1010539565974
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                45,
+                60
+            ],
+            "type": "PlayerBig"
+        },
+        {
+            "pos": [
+                -100.0,
+                -704.9528400041163
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                64,
+                60
+            ],
+            "type": "PlayerSmall"
+        }
+    ],
+    "layer_level": [
+        {
+            "pos": [
+                -700.0,
+                -550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -500.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -450.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -400.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -350.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -300.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -250.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -200.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -50.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                0.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                50.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -650.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -600.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -550.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -500.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -450.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -400.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -350.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -300.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -250.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -200.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -150.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -100.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -50.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                0.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                50.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                100.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                150.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                200.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                250.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                300.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                350.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                400.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                450.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                50.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                0.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -50.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -200.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -250.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -300.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -350.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -400.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -450.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -500.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -600.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -650.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -700.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -600.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -650.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -700.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -750.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -800.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -850.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -900.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -950.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -650.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -600.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -550.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -500.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -450.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -400.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -350.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -300.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -750.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -800.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -850.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -900.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -950.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                450.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                400.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                350.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                300.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                250.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                200.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                150.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                100.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                50.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                50.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                0.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                350.0,
+                -950.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -950.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -950.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -900.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -900.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -900.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -850.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -800.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -750.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -700.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -650.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -600.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -500.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -450.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -400.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -350.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -300.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -250.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -200.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                -50.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                0.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                50.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                350.0,
+                100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                50.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                0.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -50.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -200.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -250.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -300.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -350.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -400.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -450.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -500.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -600.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -650.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -700.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -750.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -800.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -850.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                450.0,
+                -900.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -850.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -800.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -750.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -700.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -650.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -600.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -500.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -450.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -400.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -350.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -300.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -250.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -200.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                -50.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                0.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                400.0,
+                50.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                0.0,
+                -1050.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                0.0,
+                -1100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -250.0,
+                -1100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -250.0,
+                -1050.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -250.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -200.0,
+                -1100.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                200,
+                100
+            ],
+            "target_room": "room_start",
+            "target_transition_id": 0,
+            "transition_id": 0,
+            "type": "RoomTransition"
+        },
+        {
+            "pos": [
+                -200.0,
+                -1150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -150.0,
+                -1150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -100.0,
+                -1150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -50.0,
+                -1150.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                -1000.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                1250,
+                1200
+            ],
+            "type": "CameraCutoff"
+        }
+    ]
+}

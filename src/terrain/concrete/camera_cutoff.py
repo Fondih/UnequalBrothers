@@ -30,15 +30,16 @@ class CameraCutoff(Terrain, ABC):
         return 50, 50
 
     def create_image(self):
-        if Engine.inst().run_mode == RunModes.EDITOR:
-            img = self.get_texture()
-            sx, sy = self.size
-            sx *= self.scaler * Camera.zoom()
-            sy *= self.scaler * Camera.zoom()
+        pass
 
-            img = nine_slice(img, (sx, sy), (25, 25, 25, 25))
-            if not self.rot == 0:
-                img = pg.transform.rotate(img, self.rot)
-
-            self.image = img
-            return img
+    def render(self, screen, cam, zoom):
+        if Engine.inst().run_mode != RunModes.EDITOR:
+            return
+        cs_x, cs_y = cam.size
+        x = (self.pos.x - cam.pos.x) * zoom + cs_x / 2
+        y = (self.pos.y - cam.pos.y) * zoom + cs_y / 2
+        w = self.size[0] * self.scaler * zoom
+        h = self.size[1] * self.scaler * zoom
+        if x > cs_x or y > cs_y or x + w < 0 or y + h < 0:
+            return
+        pg.draw.rect(screen, "yellow", (x, y, w, h), max(1, int(3 * zoom)))

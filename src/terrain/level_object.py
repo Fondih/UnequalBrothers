@@ -117,7 +117,7 @@ class LevelObject(ABC):
         if not self.rot == 0:
             img = pg.transform.rotate(img, self.rot)
 
-        self.image = img
+        self.image = img.convert()
         return img
 
     def create_collider(self):

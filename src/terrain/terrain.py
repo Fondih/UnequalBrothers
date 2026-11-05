@@ -2,6 +2,7 @@ from abc import ABC
 from src.terrain.level_object import LevelObject
 
 
+# TODO: Add tileable terrain type for increased performance
 class Terrain(LevelObject, ABC):
     def __init__(self, pos, scaler=1, rot=0, solid=True):
         super().__init__(pos, scaler, rot, solid)

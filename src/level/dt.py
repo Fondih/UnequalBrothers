@@ -9,16 +9,12 @@ class Dt(metaclass=Singleton):
     def __init__(self):
         self.dt = 0
         self.prev_time = 0
-        Dt._instance = self
 
     def tick(self):
         t_now = time.perf_counter()
         dt = t_now - self.prev_time
         self.dt = dt if dt < c.DT_MAX else 0
         self.prev_time = t_now
-
-    def get_dt(self):
-        return self.dt
 
     def reset_dt(self):
         self.prev_time = time.perf_counter()

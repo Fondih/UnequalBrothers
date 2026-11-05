@@ -53,7 +53,7 @@ class PlayerEntity(LivingEntity, ABC):
         return None, None, None, None
 
     def walk(self):
-        dt = Dt.inst().get_dt()
+        dt = Dt.inst().dt
 
         K_UP, K_DOWN, K_LEFT, K_RIGHT = self.get_input_keys()
         keys = pg.key.get_pressed()
@@ -83,22 +83,3 @@ class PlayerEntity(LivingEntity, ABC):
         self.walk()
 
         super().update()
-
-        # check if room transition
-        for trans in Level.get_instance().get_room_transitions_valid():
-            if self.collider.collide(trans.collider):
-                print("transition to room:", trans.target_room, "with transition:", trans.target_transition_id)
-
-                try:
-                    Engine.import_room(trans.target_room)
-                except FileNotFoundError:
-                    raise FileNotFoundError("No such room: " + trans.target_room)
-
-                for trans_target in Level.get_instance().get_room_transitions():
-                    if trans_target.transition_id == trans.target_transition_id:
-                        trans_target.set_cd(True)
-
-                        self.change_pos(trans_target.pos + trans_target.player_spawn_offset())
-                        break
-                else:
-                    raise RuntimeError("No transition found with ID: " + str(trans.target_transition_id) + " in room: " + trans.target_room)

@@ -33,5 +33,5 @@ class PlayerBig(PlayerEntity, ABC):
         return c.K_UP_B, c.K_DOWN_B, c.K_LEFT_B, c.K_RIGHT_B
 
     @classmethod
-    def get_instance(cls):
+    def inst(cls):
         return cls._instance

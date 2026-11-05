@@ -10,13 +10,12 @@ from level.level import Level
 
 engine = Engine()
 engine.init()
-level = Level.get_instance()
+level = Level.inst()
 
 while engine.running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             engine.running = False
-
     #quit input
     if pg.key.get_pressed()[pg.K_ESCAPE]:
         engine.running = False

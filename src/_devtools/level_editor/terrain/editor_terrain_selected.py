@@ -85,7 +85,7 @@ class EditorTerrainSelected(Terrain, ABC):
 
         x, y = self.get_texture_size_scaled(self.scaler)
         menu = menu_type((self.pos + pg.Vector2(x / 2, 0)).convert_to_surface(Engine.inst().cams["big"]))
-        Level.get_instance().add_overlay(menu)
+        Level.inst().add_overlay(menu)
         return menu
 
     def change_pos(self, pos):
@@ -108,6 +108,10 @@ class EditorTerrainSelected(Terrain, ABC):
         super().update()
 
         if pg.key.get_pressed()[c.KEY_DISCARD_SELECTED]:
+            self.scrap()
+            return
+        if pg.key.get_pressed()[c.KEY_COMMIT_SELECTED]:
+            self.commit()
             self.scrap()
             return
 
@@ -231,15 +235,19 @@ class EditorTerrainSelected(Terrain, ABC):
         self.image = self.create_image()
 
     def scrap(self):
-        Level.get_instance().get_layer_overlay().remove(self.menu)
-        Level.get_instance().get_layer_overlay().remove(self.info_menu)
+        from _devtools.level_editor.overlay.controllers.terrain_pick_controller import TerrainPickController
+
+
+        Level.inst().get_layer_overlay().remove(self.menu)
+        Level.inst().get_layer_overlay().remove(self.info_menu)
         self.info_menu.scrap()
         try:
-            Level.get_instance().layer_level.remove(self)
+            Level.inst().layer_level.remove(self)
         except ValueError:
             pass
         self.scrap_texture()
         self.scrap_instance()
+        TerrainPickController.inst().terrain_prev = None
 
     def get_missing_args(self, type_obj, already_supplied=('pos', 'scaler', 'rot')):
         sig = inspect.signature(type_obj)
@@ -292,10 +300,10 @@ class EditorTerrainSelected(Terrain, ABC):
         obj.change_size(self.size)
 
         if isinstance(obj, Terrain):
-            Level.get_instance().add_level(obj)
+            Level.inst().add_level(obj)
             self.edit_list.append(obj)
         if isinstance(obj, Entity):
-            Level.get_instance().add_entity(obj)
+            Level.inst().add_entity(obj)
             self.edit_list.append(obj)
 
     def commit_needed(self, layer, obj):
@@ -306,11 +314,11 @@ class EditorTerrainSelected(Terrain, ABC):
         if len(cls.edit_list) > 0:
             item = cls.edit_list.pop(-1)
             if isinstance(item, Terrain):
-                if Level.get_instance().get_layer_level().__contains__(item):
-                    Level.get_instance().get_layer_level().remove(item)
+                if Level.inst().get_layer_level().__contains__(item):
+                    Level.inst().get_layer_level().remove(item)
             if isinstance(item, Entity):
-                if Level.get_instance().get_layer_entity().__contains__(item):
-                    Level.get_instance().get_layer_entity().remove(item)
+                if Level.inst().get_layer_entity().__contains__(item):
+                    Level.inst().get_layer_entity().remove(item)
 
     @classmethod
     def scrap_instance(cls):
@@ -351,5 +359,5 @@ class EditorTerrainSelected(Terrain, ABC):
     def create_info_menu(self):
         x, y = EditorTerrainSelectedInfoMenu.create_texture_size()
         menu = EditorTerrainSelectedInfoMenu(CoordinateScreen(10, c.HEIGHT - y - 10), self.type_obj)
-        Level.get_instance().add_overlay(menu)
+        Level.inst().add_overlay(menu)
         return menu

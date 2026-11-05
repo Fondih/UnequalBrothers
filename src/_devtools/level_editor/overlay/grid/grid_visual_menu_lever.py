@@ -27,8 +27,8 @@ class GridVisualMenuLever(Lever, ABC):
     def create_menu(self):
         menu_left = GridVisualMenu(self.pos, "left")
         menu_right = GridVisualMenu(self.pos, "right")
-        Level.get_instance().add_overlay(menu_left)
-        Level.get_instance().add_overlay(menu_right)
+        Level.inst().add_overlay(menu_left)
+        Level.inst().add_overlay(menu_right)
         return [menu_left, menu_right]
 
     def clicked(self):

@@ -50,7 +50,7 @@ class TerrainPickController(Controller, metaclass=Singleton):
                     vars_t.pop("image")
                     vars_t.pop("collider")
                     obj.vars = vars_t
-                    Level.get_instance().add_level(obj)
+                    Level.inst().add_level(obj)
 
                 self.prev_pressed = True
         elif self.prev_pressed:
@@ -58,7 +58,7 @@ class TerrainPickController(Controller, metaclass=Singleton):
 
     def pick_terrain(self):
         collided = []
-        terrains = [o for o in Level.get_instance().get_obj_all()
+        terrains = [o for o in Level.inst().get_obj_all()
                     if not type(o).__name__ == "EditorTerrainSelected"
                     and not type(o).__name__ == "PlayerEntity"
                     and (Engine.key_mod_down(c.KEY_SUBTLE_EDITING) or not type(o).__name__ == "CameraCutoff")]
@@ -74,8 +74,8 @@ class TerrainPickController(Controller, metaclass=Singleton):
             return
 
         terrain = self.collided.pop(0)
-        for layer in (Level.get_instance().layer_background, Level.get_instance().layer_level
-                      , Level.get_instance().layer_entity):
+        for layer in (Level.inst().layer_background, Level.inst().layer_level
+                      , Level.inst().layer_entity):
             if terrain in layer:
                 self.terrain_prev = layer, terrain
                 layer.remove(terrain)

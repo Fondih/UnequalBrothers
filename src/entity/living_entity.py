@@ -30,7 +30,7 @@ class LivingEntity(Entity, ABC):
         return 1, 1
 
     def kill(self):
-        Level.get_instance().get_layer_entity().remove(self)
+        Level.inst().get_layer_entity().remove(self)
 
     def damage(self, dmg):
         self.health -= dmg

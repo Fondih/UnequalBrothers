@@ -28,7 +28,7 @@ class Camera:
         from datatype.coordinate import Coordinate
         from level.level import Level
 
-        borders = Level.get_instance().get_camara_cutoff()
+        borders = Level.inst().get_camara_cutoff()
         if len(borders) == 0:
             return pos
 

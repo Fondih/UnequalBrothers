@@ -42,7 +42,7 @@ class Entity(LevelObject, ABC):
         collided_x = []
         collided_y = []
 
-        solids = Level.get_instance().get_solid()
+        solids = Level.inst().get_solid()
 
         if not move_x == 0:
             probe_x = move_x if abs(move_x) >= 1 else (1 if move_x > 0 else -1)
@@ -84,7 +84,7 @@ class Entity(LevelObject, ABC):
     def is_grounded(self):
         moved_collider_y = self.collider.create_moved_copy(pg.Vector2(0, 1))
 
-        solids = Level.get_instance().get_solid()
+        solids = Level.inst().get_solid()
 
         for obj in solids:
             if moved_collider_y.collide(obj.collider):
@@ -96,7 +96,7 @@ class Entity(LevelObject, ABC):
         self.collider.update_pos(pos + self.create_pos_offset(self.scaler))
 
     def update(self):
-        dt = Dt.inst().get_dt()
+        dt = Dt.inst().dt
         self.move(self.vel)
 
         super().update()

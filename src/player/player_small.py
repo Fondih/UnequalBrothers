@@ -33,5 +33,5 @@ class PlayerSmall(PlayerEntity, ABC):
         return c.K_UP_S, c.K_DOWN_S, c.K_LEFT_S, c.K_RIGHT_S
 
     @classmethod
-    def get_instance(cls):
+    def inst(cls):
         return cls._instance

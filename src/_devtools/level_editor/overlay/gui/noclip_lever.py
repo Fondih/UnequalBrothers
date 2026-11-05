@@ -11,7 +11,7 @@ class NoclipLever(Lever, ABC):
     def __init__(self, pos):
         super().__init__(pos)
 
-        self.state = 1 if PlayerBig.get_instance().noclip else 0
+        self.state = 1 if PlayerBig.inst().noclip else 0
 
     @classmethod
     def create_name(cls):
@@ -27,5 +27,5 @@ class NoclipLever(Lever, ABC):
     def clicked(self):
         super().clicked()
 
-        PlayerBig.get_instance().toggle_noclip()
-        PlayerSmall.get_instance().toggle_noclip()
+        PlayerBig.inst().toggle_noclip()
+        PlayerSmall.inst().toggle_noclip()

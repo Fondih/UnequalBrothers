@@ -126,5 +126,5 @@ class TerrainObjectButton(Button, ABC):
 
         if not EditorTerrainSelected.get_instance() is None:
             EditorTerrainSelected.get_instance().scrap()
-        terrain = EditorTerrainSelected(self.get_class(), PlayerBig.get_instance().pos)
-        Level.get_instance().add_level(terrain)
+        terrain = EditorTerrainSelected(self.get_class(), PlayerBig.inst().pos)
+        Level.inst().add_level(terrain)

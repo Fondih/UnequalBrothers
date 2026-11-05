@@ -78,11 +78,11 @@ class Level:
         from player.player_big import PlayerBig
         from player.player_small import PlayerSmall
 
-        self.layer_entity = [PlayerBig.get_instance(), PlayerSmall.get_instance()]
+        self.layer_entity = [PlayerBig.inst(), PlayerSmall.inst()]
 
     def cleanse_background(self):
         self.layer_background = []
 
     @classmethod
-    def get_instance(cls):
+    def inst(cls):
         return cls._instance
