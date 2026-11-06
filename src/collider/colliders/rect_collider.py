@@ -5,10 +5,9 @@ from collider.collider import Collider
 
 class RectCollider(Collider):
     def __init__(self, pos, size, type_collider, is_solid=True, buttons_mouse=None, requires_clicking=True):
-        super().__init__(pos, type_collider, is_solid=is_solid, buttons_mouse=buttons_mouse,
+        super().__init__(pos, type_collider, size=size, is_solid=is_solid, buttons_mouse=buttons_mouse,
                          requires_clicking=requires_clicking)
 
-        self.size = size
         self.rect = self.create_rect()
         self.probe = self.create_probe()
 

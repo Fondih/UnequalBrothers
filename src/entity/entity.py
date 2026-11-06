@@ -11,6 +11,7 @@ class Entity(LevelObject, ABC):
     def __init__(self, pos, scaler, vel=None, rot=0, gravity=True, solid=False):
         self.vel = vel if vel is not None else pg.Vector2(0, 0)
         self.gravity = gravity
+        self.noclip = False
 
         super().__init__(pos, scaler, rot, solid)
 
@@ -37,47 +38,48 @@ class Entity(LevelObject, ABC):
         return pg.Vector2(-x / 2, -y)
 
     def move(self, move):
-        move_x, move_y = (move.x, move.y)
+        if not self.noclip:
+            move_x, move_y = (move.x, move.y)
 
-        collided_x = []
-        collided_y = []
+            collided_x = []
+            collided_y = []
 
-        solids = Level.inst().get_solid()
+            solids = Level.inst().get_solid()
 
-        if not move_x == 0:
-            probe_x = move_x if abs(move_x) >= 1 else (1 if move_x > 0 else -1)
-            moved_collider_x = self.collider.cprobe(pg.Vector2(probe_x, 0))
+            if not move_x == 0:
+                probe_x = move_x if abs(move_x) >= 1 else (1 if move_x > 0 else -1)
+                moved_collider_x = self.collider.cprobe(pg.Vector2(probe_x, 0))
 
-            for obj in solids:
-                if moved_collider_x.collide(obj.collider):
-                    collided_x.append(obj)
+                for obj in solids:
+                    if moved_collider_x.collide(obj.collider):
+                        collided_x.append(obj)
 
-        if not move_y == 0:
-            probe_y = move_y if abs(move_y) >= 1 else (1 if move_y > 0 else -1)
-            moved_collider_y = self.collider.cprobe(pg.Vector2(0, probe_y))
+            if not move_y == 0:
+                probe_y = move_y if abs(move_y) >= 1 else (1 if move_y > 0 else -1)
+                moved_collider_y = self.collider.cprobe(pg.Vector2(0, probe_y))
 
-            for obj in solids:
-                if moved_collider_y.collide(obj.collider):
-                    collided_y.append(obj)
+                for obj in solids:
+                    if moved_collider_y.collide(obj.collider):
+                        collided_y.append(obj)
 
-        if len(collided_x) > 0:
-            dist_x = None
-            for obj in collided_x:
-                dist = self.collider.get_distance(obj.collider, 0).x
-                if dist_x is None or abs(dist) < abs(dist_x):
-                    dist_x = dist
-            move.x = dist_x
-            self.vel = pg.Vector2(0, self.vel.y)
+            if len(collided_x) > 0:
+                dist_x = None
+                for obj in collided_x:
+                    dist = self.collider.get_distance(obj.collider, 0).x
+                    if dist_x is None or abs(dist) < abs(dist_x):
+                        dist_x = dist
+                move.x = dist_x
+                self.vel = pg.Vector2(0, self.vel.y)
 
-        if len(collided_y) > 0:
-            dist_y = None
-            for obj in collided_y:
-                dist = self.collider.get_distance(obj.collider, 1).y
-                if dist_y is None or abs(dist) < abs(dist_y):
-                    dist_y = dist
+            if len(collided_y) > 0:
+                dist_y = None
+                for obj in collided_y:
+                    dist = self.collider.get_distance(obj.collider, 1).y
+                    if dist_y is None or abs(dist) < abs(dist_y):
+                        dist_y = dist
 
-            move.y = dist_y
-            self.vel = pg.Vector2(self.vel.x, 0)
+                move.y = dist_y
+                self.vel = pg.Vector2(self.vel.x, 0)
 
         self.change_pos(self.pos + move)
 

@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b753dac-35c4-4f98-a078-ca60826a7953" name="Changes" comment="Improved performance">
+    <list default="true" id="4b753dac-35c4-4f98-a078-ca60826a7953" name="Changes" comment="Added second player">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/collider/collider.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/collider/collider.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/collider/colliders/rect_collider.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/collider/colliders/rect_collider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/entity.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +24,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="e549046b-8e8c-474f-bcf3-02065607f039" />
@@ -40,15 +42,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "ColliderProbes",
-    "last_opened_file_path": "C:/Users/david/Documents/EF_Inf/pygame/UnequalBrothers/src"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/david/Documents/EF_Inf/pygame/UnequalBrothers/src&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\src" />
@@ -59,10 +61,10 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\assets\rooms" />
-      <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\assets\rooms\unused" />
       <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\src" />
       <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\assets\textures\terrain\terrain" />
       <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\src\terrain\concrete" />
+      <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\src\terrain\concrete\terrain" />
     </key>
   </component>
   <component name="RunManager">
@@ -201,23 +203,7 @@
       <option name="project" value="LOCAL" />
       <updated>1793738226811</updated>
     </task>
-    <task id="LOCAL-00013" summary="Implemented Splitscreen &#10;Level editor currently only available for left Player">
-      <option name="closed" value="true" />
-      <created>1793910770925</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1793910770925</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Improved performance">
-      <option name="closed" value="true" />
-      <created>1793915904588</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1793915904588</updated>
-    </task>
-    <option name="localTasksCounter" value="15" />
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -250,8 +236,6 @@
     <MESSAGE value="Added test room" />
     <MESSAGE value="Implemented Engine Update" />
     <MESSAGE value="Added second player" />
-    <MESSAGE value="Implemented Splitscreen &#10;Level editor currently only available for left Player" />
-    <MESSAGE value="Improved performance" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved performance" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added second player" />
   </component>
 </project>

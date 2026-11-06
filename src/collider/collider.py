@@ -8,13 +8,14 @@ class Collider:
         LEVEL = auto()
         MOUSE = auto()
 
-    def __init__(self, pos, collider_type, is_solid=True, buttons_mouse=None, requires_clicking=True):
+    def __init__(self, pos, collider_type, size=(0, 0), is_solid=True, buttons_mouse=None, requires_clicking=True):
         self.buttons_mouse = buttons_mouse
         if buttons_mouse is None:
             self.buttons_mouse = [0]
         self.requires_clicking = requires_clicking
 
         self.pos = pos
+        self.size = size
         self.type = collider_type
         self.is_solid = is_solid
 
