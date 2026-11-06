@@ -1,17 +1,25 @@
 import pygame as pg
 
 from collider.collider import Collider
+from collider.colliders.rect_collider_probe import RectColliderProbe
 
 
 class RectCollider(Collider):
     def __init__(self, pos, size, type_collider, is_solid=True, buttons_mouse=None, requires_clicking=True):
-        super().__init__(pos, type_collider, is_solid=is_solid, buttons_mouse=buttons_mouse, requires_clicking=requires_clicking)
+        super().__init__(pos, type_collider, is_solid=is_solid, buttons_mouse=buttons_mouse,
+                         requires_clicking=requires_clicking)
 
         self.size = size
         self.rect = self.create_rect()
+        self.probe = self.create_probe()
 
     def create_rect(self):
         return pg.Rect(self.pos.tuple(), self.size)
+
+    def create_probe(self):
+        if self.type == Collider.Type.LEVEL:
+            return RectColliderProbe(self.pos, self.size)
+        return None
 
     def get_distance(self, other, direction):
         if isinstance(other, RectCollider):
@@ -46,10 +54,12 @@ class RectCollider(Collider):
         else:
             return super().collide(other)
 
-    def create_moved_copy(self, dist):
-        return RectCollider(self.pos + dist, self.size, self.type, self.is_solid)
+    def cprobe(self, dpos):
+        self.probe.update(self.pos + dpos, self.size)
+        return self.probe
 
-    def update_pos(self, pos):
-        super().update_pos(pos)
-
-        self.rect = self.create_rect()
+    def update(self, pos, size=None):
+        if size is None: size = self.size
+        super().update(pos, size)
+        self.size = size
+        self.rect.update(self.pos.tuple(), self.size)

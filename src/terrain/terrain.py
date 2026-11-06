@@ -26,4 +26,4 @@ class Terrain(LevelObject, ABC):
 
     def change_pos(self, pos):
         self.pos = pos
-        self.collider.update_pos(pos + self.create_pos_offset(self.scaler))
+        self.collider.update(pos + self.create_pos_offset(self.scaler))

@@ -46,7 +46,7 @@ class Entity(LevelObject, ABC):
 
         if not move_x == 0:
             probe_x = move_x if abs(move_x) >= 1 else (1 if move_x > 0 else -1)
-            moved_collider_x = self.collider.create_moved_copy(pg.Vector2(probe_x, 0))
+            moved_collider_x = self.collider.cprobe(pg.Vector2(probe_x, 0))
 
             for obj in solids:
                 if moved_collider_x.collide(obj.collider):
@@ -54,7 +54,7 @@ class Entity(LevelObject, ABC):
 
         if not move_y == 0:
             probe_y = move_y if abs(move_y) >= 1 else (1 if move_y > 0 else -1)
-            moved_collider_y = self.collider.create_moved_copy(pg.Vector2(0, probe_y))
+            moved_collider_y = self.collider.cprobe(pg.Vector2(0, probe_y))
 
             for obj in solids:
                 if moved_collider_y.collide(obj.collider):
@@ -82,7 +82,7 @@ class Entity(LevelObject, ABC):
         self.change_pos(self.pos + move)
 
     def is_grounded(self):
-        moved_collider_y = self.collider.create_moved_copy(pg.Vector2(0, 1))
+        moved_collider_y = self.collider.cprobe(pg.Vector2(0, 1))
 
         solids = Level.inst().get_solid()
 
@@ -93,7 +93,7 @@ class Entity(LevelObject, ABC):
 
     def change_pos(self, pos):
         self.pos = pos
-        self.collider.update_pos(pos + self.create_pos_offset(self.scaler))
+        self.collider.update(pos + self.create_pos_offset(self.scaler))
 
     def update(self):
         dt = Dt.inst().dt

@@ -287,7 +287,6 @@ class Engine(metaclass=Singleton):
                     if o is not None:
                         level.add_level(o)
                 for obj in layer_entity:
-                    print(obj)
                     if obj["type"] not in ("PlayerBig", "PlayerSmall"):
                         o = Engine.inst().create_import_obj(obj)
                         if o is not None:

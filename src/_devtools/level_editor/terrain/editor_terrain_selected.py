@@ -90,7 +90,7 @@ class EditorTerrainSelected(Terrain, ABC):
 
     def change_pos(self, pos):
         self.pos = pos
-        self.collider.update_pos((pos + self.create_pos_offset(self.scaler)).convert_to_surface(Engine.inst().cams["big"]))
+        self.collider.update((pos + self.create_pos_offset(self.scaler)).convert_to_surface(Engine.inst().cams["big"]))
 
     @staticmethod
     @Event.listener(Events.PLAYER_MOVE, Event.When.AFTER)

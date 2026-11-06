@@ -8,10 +8,6 @@ class Collider:
         LEVEL = auto()
         MOUSE = auto()
 
-    class Direction(Enum):
-        X_AXIS = auto()
-        Y_AXIS = auto()
-
     def __init__(self, pos, collider_type, is_solid=True, buttons_mouse=None, requires_clicking=True):
         self.buttons_mouse = buttons_mouse
         if buttons_mouse is None:
@@ -28,7 +24,7 @@ class Collider:
     def collide(self, other, overwrite_type=False, overwrite_buttons=None):
         return False
 
-    def update_pos(self, pos):
+    def update(self, pos, _=None):
         self.pos = pos
 
     def rotate(self, rot):
@@ -42,11 +38,3 @@ class Collider:
                 if pg.mouse.get_pressed()[b]:
                     return True
         return False
-
-    def create_moved_copy(self, dist):
-        return Collider(self.pos + dist, self.type, self.is_solid)
-
-    def convert_type(self, type_collider):
-        if self.type == type_collider:
-            return
-        self.type = type_collider

@@ -6,7 +6,7 @@ from run_modes import RunModes
 WIDTH = 1280
 HEIGHT = 720
 CAPTION_DEFAULT = "Unequal Brothers"
-FPS_MAX = 120
+FPS_MAX = 1200
 DT_MAX = 0.5
 
 #game

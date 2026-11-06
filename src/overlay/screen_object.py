@@ -73,7 +73,7 @@ class ScreenObject(ABC):
 
     def change_pos(self, pos):
         self.pos = pos
-        self.collider.update_pos(pos)
+        self.collider.update(pos)
 
     def update(self):
         pass

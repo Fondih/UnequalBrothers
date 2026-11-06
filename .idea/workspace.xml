@@ -4,34 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b753dac-35c4-4f98-a078-ca60826a7953" name="Changes" comment="Added second player">
+    <list default="true" id="4b753dac-35c4-4f98-a078-ca60826a7953" name="Changes" comment="Improved performance">
+      <change afterPath="$PROJECT_DIR$/assets/rooms/unused/room_start.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/controllers/terrain_pick_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/controllers/terrain_pick_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/editing_menu/terrain_folder_lever.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/editing_menu/terrain_folder_lever.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/editing_menu/terrain_object_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/editing_menu/terrain_object_button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/grid/grid_visual_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/grid/grid_visual_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/rooms/room_start.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/rooms/room_start.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/_devtools/level_editor/terrain/editor_terrain_selected.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/_devtools/level_editor/terrain/editor_terrain_selected.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/collider/collider.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/collider/collider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/collider/colliders/rect_collider.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/collider/colliders/rect_collider.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/datatype/coordinate.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/datatype/coordinate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/datatype/coordinate_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/datatype/coordinate_screen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/level/camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/level/camera.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/level/dt.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/level/dt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/overlay/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/overlay/button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/overlay/lever.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/overlay/lever.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/overlay/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/overlay/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/overlay/overlays/fps_display.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/overlay/overlays/fps_display.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/overlay/overlays/start_game_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/overlay/overlays/start_game_button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/overlay/overlays/start_game_editor_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/overlay/overlays/start_game_editor_button.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/overlay/screen_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/overlay/screen_object.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/overlay/text.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/overlay/text.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/player/player_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/player_entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/terrain/concrete/camera_cutoff.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/concrete/camera_cutoff.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/terrain/concrete/player_spawner.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/concrete/player_spawner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/terrain/concrete/room_transition.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/concrete/room_transition.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/terrain/level_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/level_object.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/terrain/terrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/terrain.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,15 +49,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/david/Documents/EF_Inf/pygame/UnequalBrothers/src"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/david/Documents/EF_Inf/pygame/UnequalBrothers/src&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\src" />
@@ -84,10 +68,10 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\assets\rooms" />
+      <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\assets\rooms\unused" />
       <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\src" />
       <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\assets\textures\terrain\terrain" />
       <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\src\terrain\concrete" />
-      <recent name="C:\Users\david\Documents\EF_Inf\pygame\UnequalBrothers\src\terrain\concrete\terrain" />
     </key>
   </component>
   <component name="RunManager">
@@ -226,7 +210,23 @@
       <option name="project" value="LOCAL" />
       <updated>1793738226811</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Implemented Splitscreen &#10;Level editor currently only available for left Player">
+      <option name="closed" value="true" />
+      <created>1793910770925</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1793910770925</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Improved performance">
+      <option name="closed" value="true" />
+      <created>1793915904588</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1793915904588</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -259,6 +259,8 @@
     <MESSAGE value="Added test room" />
     <MESSAGE value="Implemented Engine Update" />
     <MESSAGE value="Added second player" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added second player" />
+    <MESSAGE value="Implemented Splitscreen &#10;Level editor currently only available for left Player" />
+    <MESSAGE value="Improved performance" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved performance" />
   </component>
 </project>
