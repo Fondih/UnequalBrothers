@@ -1,6 +1,3 @@
-import pygame as pg
-
-import config as c
 from event_handler.event_handler import Event
 from event_handler.events import Events
 
@@ -28,7 +25,7 @@ class Camera:
         from datatype.coordinate import Coordinate
         from level.level import Level
 
-        borders = Level.inst().get_camara_cutoff()
+        borders = Level.inst().get_camera_cutoff()
         if len(borders) == 0:
             return pos
 

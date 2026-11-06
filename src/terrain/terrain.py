@@ -3,6 +3,7 @@ from src.terrain.level_object import LevelObject
 
 
 # TODO: Add tileable terrain type for increased performance
+# TODO: Possibly save terrain in a Grid instead of randomly for improved performance
 class Terrain(LevelObject, ABC):
     def __init__(self, pos, scaler=1, rot=0, solid=True):
         super().__init__(pos, scaler, rot, solid)

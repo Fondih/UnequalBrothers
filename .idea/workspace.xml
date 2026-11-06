@@ -4,11 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b753dac-35c4-4f98-a078-ca60826a7953" name="Changes" comment="Added second player">
+    <list default="true" id="4b753dac-35c4-4f98-a078-ca60826a7953" name="Changes" comment="Patched Bug with Colliders">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/collider/collider.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/collider/collider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/collider/colliders/rect_collider.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/collider/colliders/rect_collider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/controllers/terrain_pick_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/controllers/terrain_pick_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/editing_menu/terrain_object_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/editing_menu/terrain_object_button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_devtools/level_editor/terrain/editor_terrain_selected.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/_devtools/level_editor/terrain/editor_terrain_selected.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/living_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/living_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/level/camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/level/camera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/level/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/level/level.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/player_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/player_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/terrain/level_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/level_object.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/terrain/terrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/terrain.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1793738226811</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Patched Bug with Colliders">
+      <option name="closed" value="true" />
+      <created>1793995163302</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1793995163302</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -236,6 +252,7 @@
     <MESSAGE value="Added test room" />
     <MESSAGE value="Implemented Engine Update" />
     <MESSAGE value="Added second player" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added second player" />
+    <MESSAGE value="Patched Bug with Colliders" />
+    <option name="LAST_COMMIT_MESSAGE" value="Patched Bug with Colliders" />
   </component>
 </project>

@@ -1,8 +1,5 @@
 from abc import ABC
-
 import pygame as pg
-
-from level.dt import Dt
 from level.level import Level
 from terrain.level_object import LevelObject
 
@@ -83,22 +80,11 @@ class Entity(LevelObject, ABC):
 
         self.change_pos(self.pos + move)
 
-    def is_grounded(self):
-        moved_collider_y = self.collider.cprobe(pg.Vector2(0, 1))
-
-        solids = Level.inst().get_solid()
-
-        for obj in solids:
-            if moved_collider_y.collide(obj.collider):
-                return True
-        return False
-
     def change_pos(self, pos):
         self.pos = pos
         self.collider.update(pos + self.create_pos_offset(self.scaler))
 
     def update(self):
-        dt = Dt.inst().dt
         self.move(self.vel)
 
         super().update()

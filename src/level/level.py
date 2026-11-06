@@ -1,8 +1,3 @@
-import pygame as pg
-
-import src.config as c
-
-
 class Level:
     _instance = None
 
@@ -14,43 +9,43 @@ class Level:
         self.layer_entity = []
         self.layer_overlay = []
 
+        self.objgroups = self.construct_objgroups()
+
         Level._instance = self
+
+    def construct_objgroups(self):
+        groups = {"transitions": self.construct_room_transitions(),
+                  "solid": self.construct_solid(),
+                  "camera_cutoff": self.construct_camera_cutoff()}
+        self.objgroups = groups
+        return groups
 
     def get_obj_all(self):
         return self.layer_background + self.layer_level + self.layer_entity
 
-    def get_layer_background(self):
-        return self.layer_background
-
-    def get_layer_level(self):
-        return self.layer_level
-
-    def get_layer_level_colliding(self):
-        return [obj for obj in self.get_layer_level() if obj.is_colliding()]
-
-    def get_room_transitions(self):
+    def construct_room_transitions(self):
         return [obj for obj in self.layer_level if type(obj).__name__ == "RoomTransition"]
 
-    def get_room_transitions_valid(self):
-        return [obj for obj in self.get_room_transitions() if not obj.on_cd]
+    def get_room_transitions(self):
+        return self.objgroups["transitions"]
 
     def get_player_spawner(self, spawner_id):
-        return [obj for obj in self.get_layer_level() if type(obj).__name__ == "PlayerSpawner" and obj.spawner_id == spawner_id]
+        return [obj for obj in self.layer_level if type(obj).__name__ == "PlayerSpawner" and obj.spawner_id == spawner_id]
 
-    def get_camara_cutoff(self):
-        return [obj for obj in self.get_layer_level() if type(obj).__name__ == "CameraCutoff"]
+    def construct_camera_cutoff(self):
+        return [obj for obj in self.layer_level if type(obj).__name__ == "CameraCutoff"]
+
+    def get_camera_cutoff(self):
+        return self.objgroups["camera_cutoff"]
+
+    def construct_solid(self):
+        return [obj for obj in self.layer_level if obj.solid]
 
     def get_solid(self):
-        return [obj for obj in self.get_layer_level_colliding() if obj.collider.is_solid]
-
-    def get_layer_entity(self):
-        return self.layer_entity
+        return self.objgroups["solid"]
 
     def get_layer_entity_playerless(self):
-        return [obj for obj in self.get_layer_entity() if not type(obj).__name__ == "PlayerEntity"]
-
-    def get_layer_overlay(self):
-        return self.layer_overlay
+        return [obj for obj in self.layer_entity if not type(obj).__name__ == "PlayerEntity"]
 
     def clear_level(self):
         self.layer_level = []
@@ -58,30 +53,42 @@ class Level:
         self.layer_overlay = []
         self.layer_overlay = []
 
+        self.construct_objgroups()
 
-    def add_background(self, obj):
+    def add_background(self, obj, supress=False):
         self.layer_background.append(obj)
+        if not supress: self.construct_objgroups()
 
-    def add_level(self, obj):
+    def add_level(self, obj, supress=False):
         self.layer_level.append(obj)
+        if not supress: self.construct_objgroups()
 
-    def add_entity(self, obj):
+    def add_entity(self, obj, supress=False):
         self.layer_entity.append(obj)
+        if not supress: self.construct_objgroups()
 
     def add_overlay(self, obj):
         self.layer_overlay.append(obj)
 
-    def cleanse_level(self):
-        self.layer_level = []
+    def remove(self, obj, layer, supress=False):
+        layer.remove(obj)
+        if not supress: self.construct_objgroups()
+        return layer
 
-    def cleanse_entity_playerless(self):
+    def cleanse_level(self, supress=False):
+        self.layer_level = []
+        if not supress: self.construct_objgroups()
+
+    def cleanse_entity_playerless(self, supress=False):
         from player.player_big import PlayerBig
         from player.player_small import PlayerSmall
 
         self.layer_entity = [PlayerBig.inst(), PlayerSmall.inst()]
+        if not supress: self.construct_objgroups()
 
-    def cleanse_background(self):
+    def cleanse_background(self, supress=False):
         self.layer_background = []
+        if not supress: self.construct_objgroups()
 
     @classmethod
     def inst(cls):

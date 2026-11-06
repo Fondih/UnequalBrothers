@@ -33,7 +33,7 @@ class EditorTerrainSelected(Terrain, ABC):
         self.type_obj = type_obj
         EditorTerrainSelected._instance = self  # temp as fix for bug if removed
 
-        super().__init__(pos)
+        super().__init__(pos, solid=False)
 
         self.menu = self.create_menu()
         self.info_menu = self.create_info_menu()
@@ -52,10 +52,6 @@ class EditorTerrainSelected(Terrain, ABC):
     @classmethod
     def create_name(cls):
         return cls._instance.type_obj.create_name()
-
-    @classmethod
-    def is_colliding(cls):
-        return False
 
     def set_resize(self, state):
         self.resize = bool(state)
@@ -238,11 +234,11 @@ class EditorTerrainSelected(Terrain, ABC):
         from _devtools.level_editor.overlay.controllers.terrain_pick_controller import TerrainPickController
 
 
-        Level.inst().get_layer_overlay().remove(self.menu)
-        Level.inst().get_layer_overlay().remove(self.info_menu)
+        Level.inst().layer_overlay.remove(self.menu)
+        Level.inst().layer_overlay.remove(self.info_menu)
         self.info_menu.scrap()
         try:
-            Level.inst().layer_level.remove(self)
+            Level.inst().remove(self, Level.inst().layer_level)
         except ValueError:
             pass
         self.scrap_texture()
@@ -314,11 +310,11 @@ class EditorTerrainSelected(Terrain, ABC):
         if len(cls.edit_list) > 0:
             item = cls.edit_list.pop(-1)
             if isinstance(item, Terrain):
-                if Level.inst().get_layer_level().__contains__(item):
-                    Level.inst().get_layer_level().remove(item)
+                if Level.inst().layer_level.__contains__(item):
+                    Level.inst().remove(item, Level.inst().layer_level)
             if isinstance(item, Entity):
-                if Level.inst().get_layer_entity().__contains__(item):
-                    Level.inst().get_layer_entity().remove(item)
+                if Level.inst().layer_entity.__contains__(item):
+                    Level.inst().remove(item, Level.inst().layer_entity)
 
     @classmethod
     def scrap_instance(cls):

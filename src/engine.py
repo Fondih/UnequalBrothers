@@ -84,9 +84,9 @@ class Engine(metaclass=Singleton):
 
         # spawn Players
         self.players["big"] = PlayerBig(Coordinate(0, 0))
-        Level.inst().add_entity(self.players["big"])
+        Level.inst().add_entity(self.players["big"], True)
         self.players["small"] = PlayerSmall(Coordinate(0, 0))
-        Level.inst().add_entity(self.players["small"])
+        Level.inst().add_entity(self.players["small"], True)
 
         # spawn Cams
         self.cams["big"] = Camera(self.players["big"].pos, (c.WIDTH / 2, c.HEIGHT))
@@ -168,7 +168,7 @@ class Engine(metaclass=Singleton):
         from level.level import Level
 
         level = Level.inst()
-        full = [obj for obj in level.get_layer_overlay() if not isinstance(obj, SidedScreenObject)]
+        full = [obj for obj in level.layer_overlay if not isinstance(obj, SidedScreenObject)]
         for obj in full:
             obj.render(Engine.inst().screens["full"], Engine.inst().cams["full"])
 
@@ -177,7 +177,7 @@ class Engine(metaclass=Singleton):
         from level.level import Level
 
         level = Level.inst()
-        sided = [obj for obj in level.get_layer_overlay() if isinstance(obj, SidedScreenObject)]
+        sided = [obj for obj in level.layer_overlay if isinstance(obj, SidedScreenObject)]
 
         for obj in sided:
             match obj.side:
@@ -210,9 +210,9 @@ class Engine(metaclass=Singleton):
                 cam_name = "full"
         cam = Engine.inst().cams[cam_name]
 
-        for layer in (level.get_layer_background(),
-                      level.get_layer_level(),
-                      level.get_layer_entity()):
+        for layer in (level.layer_background,
+                      level.layer_level,
+                      level.layer_entity):
             for obj in layer:
                 obj.render(screen, cam, zoom)
 
@@ -252,8 +252,8 @@ class Engine(metaclass=Singleton):
             id_file += 1
 
         with open(path_file + name_file + '_' + str(id_file) + '.json', 'w', encoding='utf-8') as f:
-            data = json.dumps({'layer_background': Level.inst().get_layer_background(),
-                               'layer_level': Level.inst().get_layer_level(),
+            data = json.dumps({'layer_background': Level.inst().layer_background,
+                               'layer_level': Level.inst().layer_level,
                                'layer_entity': Level.inst().get_layer_entity_playerless()},
                               sort_keys=True, indent=4, cls=EncodeLevelObject)
             print(f"Exported room as {name_file}_{str(id_file)}.json")
@@ -274,24 +274,25 @@ class Engine(metaclass=Singleton):
                 layer_level = data["layer_level"]
                 layer_entity = data["layer_entity"]
 
-                level.cleanse_level()
-                level.cleanse_background()
-                level.cleanse_entity_playerless()
+                level.cleanse_level(True)
+                level.cleanse_background(True)
+                level.cleanse_entity_playerless(True)
 
                 for obj in layer_bg:
                     o = Engine.inst().create_import_obj(obj)
                     if o is not None:
-                        level.add_background(o)
+                        level.add_background(o, True)
                 for obj in layer_level:
                     o = Engine.inst().create_import_obj(obj)
                     if o is not None:
-                        level.add_level(o)
+                        level.add_level(o, True)
                 for obj in layer_entity:
                     if obj["type"] not in ("PlayerBig", "PlayerSmall"):
                         o = Engine.inst().create_import_obj(obj)
                         if o is not None:
-                            level.add_entity(o)
+                            level.add_entity(o, True)
 
+                Level.inst().construct_objgroups()
                 f.close()
         except FileNotFoundError:
             print(colored(f"Could not find room file: assets/rooms/{name}.json"))

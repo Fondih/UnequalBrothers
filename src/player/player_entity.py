@@ -12,7 +12,6 @@ from entity.living_entity import LivingEntity
 from event_handler.event_handler import Event
 from event_handler.events import Events
 from level.dt import Dt
-from level.level import Level
 from run_modes import RunModes
 
 

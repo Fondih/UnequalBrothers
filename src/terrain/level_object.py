@@ -1,14 +1,12 @@
 from abc import ABC, abstractmethod
 from json import JSONEncoder
-
 import pygame as pg
-
-import config as c
 from collider.collider import Collider
 from collider.colliders.rect_collider import RectCollider
 from level.camera import Camera
 
 
+# TODO: Save one Surface per level object image if possible instead of one per instance
 class LevelObject(ABC):
     _texture = None
 
@@ -40,10 +38,6 @@ class LevelObject(ABC):
     @classmethod
     def get_anim_frames(cls):
         return 1
-
-    @classmethod
-    def is_colliding(cls):
-        return True
 
     @classmethod
     @abstractmethod
@@ -85,9 +79,12 @@ class LevelObject(ABC):
         name_custom = namespace_custom + name_custom
 
         try:
-            img = pg.image.load("assets/textures/" + name_custom + ".png").convert_alpha()
-            img.set_colorkey(colorkey_custom)
-
+            raw = pg.image.load("assets/textures/" + name_custom + ".png")
+            if raw.get_flags() & pg.SRCALPHA:  # sprites with transparency
+                img = raw.convert_alpha()
+                img.set_colorkey(colorkey_custom)
+            else:
+                img = raw.convert()
             return img
         except FileNotFoundError:
             print("\033[31m" + "Cannot load image: " + name_custom + " from: " + "assets/textures/" + name_custom + ".png" + "\033[0m")
@@ -117,8 +114,9 @@ class LevelObject(ABC):
         if not self.rot == 0:
             img = pg.transform.rotate(img, self.rot)
 
-        self.image = img.convert()
-        return img
+        image = img.convert()
+        self.image = image
+        return image
 
     def create_collider(self):
         return RectCollider(self.pos, self.get_texture_size_scaled(self.scaler), Collider.Type.LEVEL, is_solid=self.solid)

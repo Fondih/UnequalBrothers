@@ -78,5 +78,5 @@ class TerrainPickController(Controller, metaclass=Singleton):
                       , Level.inst().layer_entity):
             if terrain in layer:
                 self.terrain_prev = layer, terrain
-                layer.remove(terrain)
+                Level.inst().remove(terrain, layer)
         return terrain
