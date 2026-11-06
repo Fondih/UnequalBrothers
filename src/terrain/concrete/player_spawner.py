@@ -24,6 +24,14 @@ class PlayerSpawner(Terrain, ABC):
             return "player_spawner"
 
     @classmethod
+    def has_alpha(cls):
+        return True
+
+    @classmethod
+    def colorkey(cls):
+        return "black"
+
+    @classmethod
     def create_texture_size(cls):
         return 50, 50
 

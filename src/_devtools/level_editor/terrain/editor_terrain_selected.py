@@ -53,6 +53,14 @@ class EditorTerrainSelected(Terrain, ABC):
     def create_name(cls):
         return cls._instance.type_obj.create_name()
 
+    @classmethod
+    def has_alpha(cls):
+        return cls.get_instance().type_obj.has_alpha()
+
+    @classmethod
+    def colorkey(cls):
+        return cls.get_instance().type_obj.colorkey()
+
     def set_resize(self, state):
         self.resize = bool(state)
 
@@ -342,14 +350,10 @@ class EditorTerrainSelected(Terrain, ABC):
             img = nine_slice(img, (sx, sy), (25, 25, 25, 25))
             if not self.rot == 0:
                 img = pg.transform.rotate(img, self.rot)
-
-
         else:
-            img = super().create_image()
+            img = self.type_obj.create_image(self)
 
         pg.draw.rect(img, "yellow", ((0, 0), img.get_size()), 3 * Camera.zoom())
-
-        self.image = img
         return img
 
     def create_info_menu(self):

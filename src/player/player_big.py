@@ -21,6 +21,14 @@ class PlayerBig(PlayerEntity, ABC):
         return 100
 
     @classmethod
+    def has_alpha(cls):
+        return True
+
+    @classmethod
+    def colorkey(cls):
+        return "black"
+
+    @classmethod
     def create_texture_size(cls):
         return 45, 60
 

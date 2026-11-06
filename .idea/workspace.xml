@@ -4,19 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b753dac-35c4-4f98-a078-ca60826a7953" name="Changes" comment="Patched Bug with Colliders">
+    <list default="true" id="4b753dac-35c4-4f98-a078-ca60826a7953" name="Changes" comment="Made multiple LevelObject Lists that were being created every update be cached instead">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/controllers/terrain_pick_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/controllers/terrain_pick_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/editing_menu/terrain_object_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/_devtools/level_editor/overlay/editing_menu/terrain_object_button.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/_devtools/level_editor/terrain/editor_terrain_selected.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/_devtools/level_editor/terrain/editor_terrain_selected.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/living_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/living_entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/level/camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/level/camera.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/level/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/level/level.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/player_big.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/player_big.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/player/player_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/player_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/player_small.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/player_small.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/terrain/concrete/floor_stone.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/concrete/floor_stone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/terrain/concrete/player_spawner.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/concrete/player_spawner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/terrain/concrete/wall_stone.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/concrete/wall_stone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/terrain/concrete/water.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/concrete/water.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/terrain/level_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/level_object.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/terrain/terrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/terrain/terrain.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1793995163302</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Made multiple LevelObject Lists that were being created every update be cached instead">
+      <option name="closed" value="true" />
+      <created>1793999459354</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1793999459354</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -253,6 +259,7 @@
     <MESSAGE value="Implemented Engine Update" />
     <MESSAGE value="Added second player" />
     <MESSAGE value="Patched Bug with Colliders" />
-    <option name="LAST_COMMIT_MESSAGE" value="Patched Bug with Colliders" />
+    <MESSAGE value="Made multiple LevelObject Lists that were being created every update be cached instead" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made multiple LevelObject Lists that were being created every update be cached instead" />
   </component>
 </project>

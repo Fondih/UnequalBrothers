@@ -18,11 +18,9 @@ from run_modes import RunModes
 @register(["player"])
 class PlayerEntity(LivingEntity, ABC):
     def __init__(self, pos, scaler=1, rot=0, speed=c.PLAYER_SPEED):
+        super().__init__(pos, scaler=scaler, rot=rot)
         self.noclip = True if (Engine.inst().run_mode == RunModes.EDITOR or
                                Engine.inst().run_mode == RunModes.HACKS) else False
-
-        super().__init__(pos, scaler=scaler, rot=rot)
-
         self.speed = speed
 
     @classmethod

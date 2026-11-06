@@ -32,6 +32,14 @@ class LevelObject(ABC):
         return cls._texture
 
     @classmethod
+    def has_alpha(cls):
+        return False
+
+    @classmethod
+    def colorkey(cls):
+        return None
+
+    @classmethod
     def is_anim(cls):
         return False
 
@@ -64,28 +72,15 @@ class LevelObject(ABC):
         return x * scaler, y * scaler
 
     @classmethod
-    def create_colorkey_custom(cls):
-        return "black"
-
-    @classmethod
     def create_texture(cls, name_custom=None, namespace_custom=None, colorkey_custom=None):
-        if colorkey_custom is None:
-            colorkey_custom = cls.create_colorkey_custom()
-        if namespace_custom is None:
-            namespace_custom = cls.create_namespace()
-        if name_custom is None:
-            name_custom = cls.create_name()
+        if colorkey_custom is None: colorkey_custom = cls.colorkey()
+        if namespace_custom is None: namespace_custom = cls.create_namespace()
+        if name_custom is None: name_custom = cls.create_name()
 
         name_custom = namespace_custom + name_custom
 
         try:
-            raw = pg.image.load("assets/textures/" + name_custom + ".png")
-            if raw.get_flags() & pg.SRCALPHA:  # sprites with transparency
-                img = raw.convert_alpha()
-                img.set_colorkey(colorkey_custom)
-            else:
-                img = raw.convert()
-            return img
+            return pg.image.load("assets/textures/" + name_custom + ".png")
         except FileNotFoundError:
             print("\033[31m" + "Cannot load image: " + name_custom + " from: " + "assets/textures/" + name_custom + ".png" + "\033[0m")
 
@@ -114,7 +109,10 @@ class LevelObject(ABC):
         if not self.rot == 0:
             img = pg.transform.rotate(img, self.rot)
 
-        image = img.convert()
+        if self.has_alpha():
+            image = img.convert_alpha()
+            image.set_colorkey(self.colorkey())
+        else: image = img.convert()
         self.image = image
         return image
 
