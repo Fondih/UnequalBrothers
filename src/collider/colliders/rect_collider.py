@@ -1,7 +1,6 @@
 import pygame as pg
 
 from collider.collider import Collider
-from collider.colliders.rect_collider_probe import RectColliderProbe
 
 
 class RectCollider(Collider):
@@ -57,6 +56,29 @@ class RectCollider(Collider):
     def cprobe(self, dpos):
         self.probe.update(self.pos + dpos, self.size)
         return self.probe
+
+    def update(self, pos, size=None):
+        if size is None: size = self.size
+        super().update(pos, size)
+        self.size = size
+        self.rect.update(self.pos.tuple(), self.size)
+
+
+class RectColliderProbe(Collider):
+    def __init__(self, pos, size):
+        super().__init__(pos, Collider.Type.LEVEL)
+
+        self.size = size
+        self.rect = self.create_rect()
+
+    def create_rect(self):
+        return pg.Rect(self.pos.tuple(), self.size)
+
+    def collide(self, other, overwrite_type=False, overwrite_buttons=None):
+        if isinstance(other, RectCollider):
+            return self.rect.colliderect(other.rect)
+        else:
+            return super().collide(other)
 
     def update(self, pos, size=None):
         if size is None: size = self.size
