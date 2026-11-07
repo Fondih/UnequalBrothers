@@ -293,9 +293,15 @@ class Engine(metaclass=Singleton):
                             level.add_entity(o, True)
 
                 Level.inst().construct_objgroups()
+                print(f"Successfully loaded room: ", name)
                 f.close()
         except FileNotFoundError:
-            print(colored(f"Could not find room file: assets/rooms/{name}.json"))
+            print(colored(f"Could not find room file: assets/rooms/{name}.json  ;   Loading empty room"))
+
+            level.cleanse_level(True)
+            level.cleanse_background(True)
+            level.cleanse_entity_playerless(True)
+            Level.inst().construct_objgroups()
 
     @staticmethod
     def create_import_obj(obj):

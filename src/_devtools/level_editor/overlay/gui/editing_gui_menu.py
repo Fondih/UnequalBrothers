@@ -5,6 +5,7 @@ import config as c
 from _devtools.level_editor.overlay.editing_menu.terrain_place_lever import TerrainPlaceLever
 from _devtools.level_editor.overlay.grid.grid_visual_menu_lever import GridVisualMenuLever
 from _devtools.level_editor.overlay.gui.editor_export_button import EditorExportButton
+from _devtools.level_editor.overlay.gui.editor_room_new_button import EditorRoomNewButton
 from _devtools.level_editor.overlay.gui.noclip_lever import NoclipLever
 from _devtools.level_editor.overlay.gui.undo_commit_button import UndoCommitButton
 from datatype.coordinate_screen import CoordinateScreen
@@ -41,4 +42,5 @@ class EditingGuiMenu(Menu, ABC):
                 GridVisualMenuLever(CoordinateScreen(c.WIDTH - 150, 30)),
                 NoclipLever(CoordinateScreen(c.WIDTH - 190, 30)),
                 EditorExportButton(CoordinateScreen(20, 20)),
+                EditorRoomNewButton(CoordinateScreen(80, 20)),
                 FPSDisplay()]

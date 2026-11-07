@@ -12,7 +12,7 @@ DT_MAX = 0.5
 #game
 FONT_DEFAULT = "Comic Sans MS"
 GRID_SIZE = 50
-ROOM_START = "room_start"
+ROOM_START = "room_start_new"
 GAMEMODE = RunModes.EDITOR
 
 #editor

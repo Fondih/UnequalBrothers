@@ -1,6 +1,33 @@
 {
     "layer_background": [],
-    "layer_entity": [],
+    "layer_entity": [
+        {
+            "pos": [
+                -88.73203441310572,
+                520.3313467553791
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                45,
+                60
+            ],
+            "type": "PlayerBig"
+        },
+        {
+            "pos": [
+                1525.0,
+                1050.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                64,
+                60
+            ],
+            "type": "PlayerSmall"
+        }
+    ],
     "layer_level": [
         {
             "pos": [
@@ -7752,19 +7779,6 @@
         },
         {
             "pos": [
-                500.0,
-                1300.0
-            ],
-            "rot": 0,
-            "scaler": 1,
-            "size": [
-                50,
-                50
-            ],
-            "type": "FloorStone"
-        },
-        {
-            "pos": [
                 450.0,
                 1300.0
             ],
@@ -10781,19 +10795,6 @@
         },
         {
             "pos": [
-                -1450.0,
-                -800.0
-            ],
-            "rot": 0,
-            "scaler": 1,
-            "size": [
-                3500,
-                2200
-            ],
-            "type": "CameraCutoff"
-        },
-        {
-            "pos": [
                 1800.0,
                 1350.0
             ],
@@ -10884,6 +10885,230 @@
             ],
             "spawner_id": 1,
             "type": "PlayerSpawner"
+        },
+        {
+            "pos": [
+                -650.0,
+                1400.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -650.0,
+                1450.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -650.0,
+                1500.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -1000.0,
+                1400.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                -1000.0,
+                1450.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                -1000.0,
+                1500.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "Water"
+        },
+        {
+            "pos": [
+                -950.0,
+                1450.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                300,
+                100
+            ],
+            "target_room": "room_square_tiny",
+            "target_transition_id": 0,
+            "transition_id": 0,
+            "type": "RoomTransition"
+        },
+        {
+            "pos": [
+                -1000.0,
+                1550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -950.0,
+                1550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -900.0,
+                1550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -850.0,
+                1550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -800.0,
+                1550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -750.0,
+                1550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -700.0,
+                1550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                -650.0,
+                1550.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "WallStone"
+        },
+        {
+            "pos": [
+                500.0,
+                1300.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                50,
+                50
+            ],
+            "type": "FloorStone"
+        },
+        {
+            "pos": [
+                -1450.0,
+                -800.0
+            ],
+            "rot": 0,
+            "scaler": 1,
+            "size": [
+                3500,
+                2200
+            ],
+            "type": "CameraCutoff"
         }
     ]
 }
